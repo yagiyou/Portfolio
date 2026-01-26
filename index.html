@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>個人接案作品集｜Rosegold Portfolio</title>
 
+<!-- ✅ 有 JS 才加 .js class（沒 JS 也會正常顯示） -->
+<script>
+  document.documentElement.classList.add('js');
+</script>
+
 <style>
 :root{
   --rose:#b76e79;
@@ -205,6 +210,7 @@ h1{
   font-size: 15px;
   font-weight: 750;
   max-width: 60ch;
+  white-space: pre-line;
 }
 .cta{
   margin-top: 14px;
@@ -412,7 +418,7 @@ h1{
   color: rgba(183,110,121,.95);
 }
 
-/* ===== Timeline (可選：接案我仍保留，讓你有「歷程感」) ===== */
+/* ===== Timeline ===== */
 .timeline{
   margin-top: 12px;
   display:grid;
@@ -467,12 +473,13 @@ h1{
   line-height: 1.85;
 }
 
-/* ===== Reveal animation ===== */
-.reveal{
-  opacity:0;
-  transform: translateY(14px);
-}
-.reveal.show{
+/* ===== ✅ Reveal 動畫（修正版） =====
+   沒 JS：預設就顯示
+   有 JS：才套用淡入
+*/
+.reveal{ opacity:1; transform:none; }
+.js .reveal{ opacity:0; transform: translateY(14px); }
+.js .reveal.show{
   opacity:1;
   transform: translateY(0);
   transition: opacity .65s ease, transform .65s ease;
@@ -627,7 +634,7 @@ footer{
         <a href="#about">關於我</a>
         <a href="#works">作品</a>
         <a href="#timeline">經歷</a>
-        <a class="btn" href="https://forms.gle/H5iJQWD7HvGtMYbb7">合作洽談 →</a>
+        <a class="btn" href="https://forms.gle/H5iJQWD7HvGtMYbb7" target="_blank" rel="noreferrer">合作洽談 →</a>
       </nav>
     </div>
   </header>
@@ -637,7 +644,7 @@ footer{
     <section class="card hero reveal" id="top">
       <div class="hero-inner">
         <div>
-          <div class="pill">Crystal · </div>
+          <div class="pill">Crystal · Freelance Visual Designer</div>
           <h1>把品牌做出「辨識度」<br/>把畫面做出「信任感」</h1>
           <p class="lead">
 整合品牌視覺與行銷策略，從 LOGO／識別／包裝到網站一條龍完成。
@@ -645,7 +652,7 @@ footer{
           </p>
           <div class="cta">
             <a class="btn" href="#works">看作品 ↓</a>
-            <a class="btn btn-ghost" href="https://forms.gle/H5iJQWD7HvGtMYbb7">我要合作</a>
+            <a class="btn btn-ghost" href="https://forms.gle/H5iJQWD7HvGtMYbb7" target="_blank" rel="noreferrer">我要合作</a>
           </div>
         </div>
 
@@ -653,7 +660,7 @@ footer{
         <aside class="card profile reveal" id="about">
           <div class="avatar">
             <div class="photo" title="放你的個人照片">
-              <!-- ✅ 把 src 換成你的照片 -->
+              <!-- ✅ 取消註解並確認圖片網址可公開存取 -->
               <!-- <img src="https://yagidesign-studio.com/wp-content/uploads/2026/01/snimgJFUvbc.webp" alt="My photo"> -->
               <div class="hint">把照片放這裡</div>
             </div>
@@ -678,7 +685,6 @@ footer{
           </div>
 
           <div class="contact" id="contact">
-            <!-- ✅ 改成你的連結 -->
             <a href="mailto:crystallake0701@gmail.com">Email <span>✉</span></a>
             <a href="https://yagidesign-studio.com/category/work/" target="_blank" rel="noreferrer">作品雲端 / Behance <span>↗</span></a>
             <a href="https://www.threads.com/@crystal.vibes_0701" target="_blank" rel="noreferrer">IG / Threads <span>↗</span></a>
@@ -692,7 +698,7 @@ footer{
     <section class="section" id="works">
       <div class="section-title reveal">
         <h2>精選作品</h2>
-        <span>可放圖片縮圖（沒有圖片也能先用 placeholder）</span>
+        <span>點卡片可開啟預覽</span>
       </div>
 
       <div class="grid" id="workGrid"></div>
@@ -702,7 +708,7 @@ footer{
     <section class="section" id="timeline">
       <div class="section-title reveal">
         <h2>工作經歷 / 接案歷程</h2>
-        <span>總年資：6~7年</span>
+        <span>總年資：6–7 年</span>
       </div>
 
       <div class="timeline" id="timelineList"></div>
@@ -724,7 +730,7 @@ footer{
 
       <div class="dialog-main">
         <div class="preview" id="mPreview">
-          <div class="ph">放大預覽（可改成作品圖片）</div>
+          <div class="ph">放大預覽（可放作品圖片）</div>
         </div>
 
         <div class="meta-box">
@@ -751,7 +757,6 @@ const works = [
     tools:"Illustrator · Figma",
     desc:"以留白與玫瑰金建立高級感，延伸到名片與社群模板。",
     link:"#",
-    // ✅ 放作品縮圖（沒有就留空）
     thumb:""
   },
   {
@@ -817,10 +822,9 @@ const works = [
 ];
 
 const timelineItems = [
-  { date:"2024/9~在職中", title:"保衛站行銷部-商業設計：品牌識別 × 活動頁 × 社群套版", desc:"美化公司官網、優化公司既有品牌識別，以商業目標為核心，做出一致、好讀、好轉換的視覺。" },
-  { date:"2021/5~2024/8", title:"山羊視覺設計-視覺設計：品牌視覺專案協作", desc:"與客戶溝通並以同理心去了解客戶,幫忙客戶解決設計上的問題，與業界其它公司合作,一起讓專案進行得更順利。" },
-  { date:"2020/3~2021/4", title:"集美生計有限公司-平面設計人員：旗下電商子品牌精油大學包裝設計、活動展場大型輸出物設計", desc:"設計原物料公司品牌VIS、禮盒包裝盒結構設計、展場設計規劃
-與旗下精油電商子品牌每月的商業廣告圖與包裝設計" },
+  { date:"2024/9~在職中", title:"保衛站行銷部｜商業設計", desc:"美化公司官網、優化品牌識別，以商業目標為核心，做出一致、好讀、好轉換的視覺。" },
+  { date:"2021/5~2024/8", title:"山羊視覺設計｜視覺設計", desc:"與客戶溝通並以同理心理解需求，協助解決設計問題，並與合作夥伴共同完成專案。" },
+  { date:"2020/3~2021/4", title:"集美生技｜平面設計", desc:"品牌 VIS、禮盒包裝、展場設計規劃，以及每月商業廣告圖與包裝設計。" }
 ];
 
 /* ====== Render Works ====== */
@@ -860,33 +864,45 @@ t.innerHTML = timelineItems.map(item => `
   </div>
 `).join("");
 
-/* ====== Reveal on scroll ====== */
-let io = new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      en.target.classList.add("show");
-      io.unobserve(en.target);
-    }
-  });
-},{ threshold: 0.12 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+/* ====== Reveal on scroll（含 fallback） ====== */
+(function setupReveal(){
+  const targets = document.querySelectorAll(".reveal");
+  // 如果沒有 IO 或者被某些環境擋掉，就直接顯示
+  if(!("IntersectionObserver" in window)){
+    targets.forEach(el => el.classList.add("show"));
+    return;
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        en.target.classList.add("show");
+        io.unobserve(en.target);
+      }
+    });
+  },{ threshold: 0.12 });
 
-/* ====== Hero mouse glow ====== */
+  targets.forEach(el => io.observe(el));
+})();
+
+/* ====== Hero mouse glow（安全判斷） ====== */
 const hero = document.querySelector(".hero");
-hero.addEventListener("mousemove",(e)=>{
-  const r = hero.getBoundingClientRect();
-  const mx = ((e.clientX - r.left) / r.width) * 100;
-  const my = ((e.clientY - r.top) / r.height) * 100;
-  hero.style.setProperty("--mx", mx + "%");
-  hero.style.setProperty("--my", my + "%");
-});
+if(hero){
+  hero.addEventListener("mousemove",(e)=>{
+    const r = hero.getBoundingClientRect();
+    const mx = ((e.clientX - r.left) / r.width) * 100;
+    const my = ((e.clientY - r.top) / r.height) * 100;
+    hero.style.setProperty("--mx", mx + "%");
+    hero.style.setProperty("--my", my + "%");
+  });
+}
 
-/* ====== Background scroll parallax ====== */
+/* ====== Background scroll parallax（安全判斷） ====== */
 const bg1 = document.getElementById("bg1");
 const bg2 = document.getElementById("bg2");
 const bg3 = document.getElementById("bg3");
 let raf=null;
 function onScroll(){
+  if(!bg1 || !bg2 || !bg3) return;
   if(raf) return;
   raf = requestAnimationFrame(()=>{
     const y = window.scrollY || 0;
@@ -912,6 +928,7 @@ const mDesc = document.getElementById("mDesc");
 const mLink = document.getElementById("mLink");
 
 function openModal(w){
+  if(!modal) return;
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.style.overflow="hidden";
@@ -928,16 +945,19 @@ function openModal(w){
   if(w.thumb){
     mPreview.innerHTML = `<img src="${w.thumb}" alt="${w.title}">`;
   }else{
-    mPreview.innerHTML = `<div class="ph">放大預覽（可改成作品圖片）</div>`;
+    mPreview.innerHTML = `<div class="ph">放大預覽（可放作品圖片）</div>`;
   }
 }
 function closeModal(){
+  if(!modal) return;
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden","true");
   document.body.style.overflow="";
 }
-mClose.addEventListener("click", closeModal);
-modal.addEventListener("click",(e)=>{ if(e.target === modal) closeModal(); });
+if(mClose) mClose.addEventListener("click", closeModal);
+if(modal){
+  modal.addEventListener("click",(e)=>{ if(e.target === modal) closeModal(); });
+}
 window.addEventListener("keydown",(e)=>{ if(e.key === "Escape") closeModal(); });
 
 document.querySelectorAll(".work").forEach(card=>{
@@ -948,10 +968,8 @@ document.querySelectorAll(".work").forEach(card=>{
 });
 
 /* Footer year */
-document.getElementById("year").textContent = new Date().getFullYear();
+const yearEl = document.getElementById("year");
+if(yearEl) yearEl.textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
-
-
-
