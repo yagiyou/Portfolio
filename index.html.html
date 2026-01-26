@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>個人接案作品集｜Rosegold Portfolio</title>
+
+<style>
+:root{
+  --rose:#b76e79;
+  --rose2:#d6a3ad;
+  --rose-soft:#f0d9dd;
+
+  --text:#1f2430;
+  --muted:rgba(31,36,48,.66);
+  --line:rgba(31,36,48,.10);
+
+  --bg:#ffffff;
+  --r:18px;
+  --max:1100px;
+  --shadow:0 18px 60px rgba(31,36,48,.10);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family: system-ui,-apple-system,"Noto Sans TC","PingFang TC",sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  line-height:1.85;
+  overflow-x:hidden;
+}
+
+/* ===== 背景：不重複 + 隨卷軸漂移 ===== */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  overflow:hidden;
+}
+.bg .layer{
+  position:absolute;
+  inset:-20%;
+  will-change: transform;
+  background-repeat:no-repeat;
+}
+.bg .l1{
+  background:
+    radial-gradient(650px 450px at 15% 18%, rgba(183,110,121,.16), transparent 68%),
+    radial-gradient(700px 500px at 85% 28%, rgba(214,163,173,.18), transparent 70%),
+    radial-gradient(560px 380px at 35% 88%, rgba(240,217,221,.40), transparent 72%);
+  background-size: cover;
+  opacity:.95;
+}
+.bg .l2{
+  background:
+    linear-gradient(120deg,
+      transparent 0%,
+      rgba(183,110,121,.08) 18%,
+      rgba(214,163,173,.12) 34%,
+      transparent 58%,
+      rgba(183,110,121,.06) 78%,
+      transparent 100%);
+  background-size: 1900px 1000px;
+  opacity:.75;
+  mix-blend-mode:multiply;
+}
+.bg .l3{
+  background:
+    radial-gradient(circle at 20% 35%, rgba(31,36,48,.04) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 55%, rgba(31,36,48,.03) 0 1px, transparent 2px),
+    radial-gradient(circle at 40% 78%, rgba(31,36,48,.03) 0 1px, transparent 2px);
+  background-size: 980px 760px;
+  opacity:.55;
+}
+
+/* ===== Layout ===== */
+.wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding: 22px 18px 100px;
+}
+
+/* ===== Topbar ===== */
+.topbar{
+  position: sticky;
+  top:0;
+  z-index: 30;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,.72);
+  border-bottom:1px solid var(--line);
+}
+.topbar .inner{
+  max-width:var(--max);
+  margin:0 auto;
+  padding: 12px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  user-select:none;
+}
+.mark{
+  width:34px;height:34px;border-radius:14px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,.9), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(183,110,121,.85), rgba(214,163,173,.35));
+  border:1px solid rgba(183,110,121,.22);
+  box-shadow: 0 12px 30px rgba(183,110,121,.16);
+}
+.brand b{font-weight:950}
+.brand small{display:block;color:var(--muted);font-weight:800;font-size:12px;margin-top:2px}
+.nav{
+  display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end;
+}
+.nav a{
+  text-decoration:none;
+  color:var(--muted);
+  font-weight:900;
+  font-size:13px;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid transparent;
+  transition: .18s ease;
+}
+.nav a:hover{
+  color:var(--text);
+  background: rgba(183,110,121,.06);
+  border-color: rgba(183,110,121,.18);
+}
+.btn{
+  text-decoration:none;
+  color:var(--text);
+  font-weight:950;
+  font-size:13px;
+  padding:9px 12px;
+  border-radius:999px;
+  border:1px solid rgba(183,110,121,.26);
+  background: linear-gradient(135deg, rgba(183,110,121,.20), rgba(214,163,173,.10));
+  box-shadow: 0 12px 30px rgba(183,110,121,.12);
+  transition: transform .18s ease, filter .18s ease;
+  white-space:nowrap;
+}
+.btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+
+/* ===== Shared card ===== */
+.card{
+  background: rgba(255,255,255,.82);
+  border:1px solid var(--line);
+  border-radius: calc(var(--r) + 8px);
+  box-shadow: var(--shadow);
+}
+
+/* ===== Hero ===== */
+.hero{
+  margin-top: 18px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:
+    radial-gradient(620px 420px at var(--mx, 30%) var(--my, 35%), rgba(183,110,121,.14), transparent 62%),
+    radial-gradient(520px 360px at calc(var(--mx, 30%) + 30%) calc(var(--my, 35%) + 25%), rgba(214,163,173,.14), transparent 65%);
+  pointer-events:none;
+}
+.hero-inner{
+  position:relative;
+  padding: 28px 22px;
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: 16px;
+  align-items: stretch;
+}
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding: 7px 12px;
+  border-radius:999px;
+  background: rgba(183,110,121,.08);
+  border:1px solid rgba(183,110,121,.18);
+  color: rgba(183,110,121,.95);
+  font-weight:950;
+  font-size:12px;
+  width: fit-content;
+}
+h1{
+  margin: 12px 0 8px;
+  font-size: clamp(28px, 4.2vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -.7px;
+}
+.lead{
+  margin:0;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 750;
+  max-width: 60ch;
+}
+.cta{
+  margin-top: 14px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn-ghost{
+  background: rgba(31,36,48,.03);
+  border-color: rgba(31,36,48,.10);
+  box-shadow:none;
+}
+.btn-ghost:hover{ transform: translateY(-1px); }
+
+.profile{
+  padding: 18px;
+  display:grid;
+  gap: 12px;
+  align-content:start;
+}
+
+/* 個人照片槽 */
+.avatar{
+  display:grid;
+  grid-template-columns: 90px 1fr;
+  gap: 14px;
+  align-items:center;
+}
+.photo{
+  width:90px; height:90px;
+  border-radius: 26px;
+  border:1px solid rgba(183,110,121,.22);
+  box-shadow: 0 14px 34px rgba(183,110,121,.14);
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255,255,255,.9), rgba(255,255,255,0) 55%),
+    linear-gradient(135deg, rgba(214,163,173,.65), rgba(183,110,121,.20));
+  overflow:hidden;
+  position:relative;
+}
+.photo img{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+.photo .hint{
+  position:absolute;
+  inset:auto 10px 10px 10px;
+  padding: 6px 8px;
+  border-radius: 12px;
+  background: rgba(255,255,255,.72);
+  border:1px solid rgba(31,36,48,.10);
+  color: rgba(31,36,48,.65);
+  font-weight:900;
+  font-size:11px;
+}
+.avatar b{ font-size: 15px; font-weight: 1000; }
+.avatar small{ display:block; margin-top:4px; color: var(--muted); font-weight: 800; }
+
+.pills{
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.pills span{
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(31,36,48,.04);
+  border: 1px solid rgba(31,36,48,.08);
+  color: rgba(31,36,48,.78);
+  font-weight: 900;
+  font-size: 12px;
+}
+.pills span.rose{
+  background: rgba(183,110,121,.10);
+  border-color: rgba(183,110,121,.18);
+  color: rgba(183,110,121,.95);
+}
+
+.contact{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+}
+.contact a{
+  text-decoration:none;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border:1px solid rgba(183,110,121,.18);
+  background: rgba(183,110,121,.06);
+  color: var(--text);
+  font-weight: 950;
+  font-size: 13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  transition: .18s ease;
+}
+.contact a:hover{ transform: translateY(-1px); }
+
+/* ===== Section titles ===== */
+.section{
+  margin-top: 46px;
+}
+.section-title{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom: 12px;
+}
+.section-title h2{
+  margin:0;
+  font-size: 18px;
+  font-weight: 1000;
+}
+.section-title span{
+  color: var(--muted);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* ===== Works Gallery ===== */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+}
+.work{
+  grid-column: span 4;
+  border-radius: calc(var(--r) + 8px);
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.86);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  cursor:pointer;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform .18s ease, filter .18s ease, border-color .18s ease;
+}
+.work:hover{
+  border-color: rgba(183,110,121,.22);
+  filter: brightness(1.02);
+  transform: translateY(-3px);
+}
+.thumb{
+  height: 168px;
+  background:
+    radial-gradient(520px 260px at 20% 20%, rgba(183,110,121,.16), transparent 62%),
+    radial-gradient(520px 260px at 80% 25%, rgba(214,163,173,.14), transparent 60%),
+    linear-gradient(135deg, rgba(31,36,48,.06), rgba(31,36,48,0));
+  border-bottom:1px solid rgba(31,36,48,.08);
+  position:relative;
+  overflow:hidden;
+}
+.thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.thumb .ph{
+  position:absolute;
+  inset: 14px;
+  border-radius: 16px;
+  border:1px dashed rgba(31,36,48,.16);
+  background: rgba(255,255,255,.45);
+  display:grid;
+  place-items:center;
+  color: rgba(31,36,48,.55);
+  font-weight: 900;
+  font-size: 12px;
+}
+.work-body{
+  padding: 14px 14px 16px;
+}
+.work-title{
+  margin:0 0 6px;
+  font-weight: 1000;
+  font-size: 15px;
+}
+.work-desc{
+  margin:0 0 12px;
+  color: var(--muted);
+  font-weight: 750;
+  font-size: 13px;
+  line-height: 1.75;
+  min-height: 42px;
+}
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.tag{
+  padding: 6px 10px;
+  border-radius:999px;
+  font-size: 12px;
+  font-weight: 900;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(31,36,48,.03);
+  color: rgba(31,36,48,.76);
+}
+.tag.rose{
+  border-color: rgba(183,110,121,.20);
+  background: rgba(183,110,121,.08);
+  color: rgba(183,110,121,.95);
+}
+
+/* ===== Timeline (可選：接案我仍保留，讓你有「歷程感」) ===== */
+.timeline{
+  margin-top: 12px;
+  display:grid;
+  gap: 14px;
+}
+.t-item{
+  display:grid;
+  grid-template-columns: 40px 1fr;
+  gap: 14px;
+  align-items:start;
+}
+.node{
+  display:flex;
+  justify-content:center;
+  position:relative;
+}
+.dot{
+  width:14px;height:14px;border-radius:999px;
+  background: linear-gradient(135deg, var(--rose), var(--rose2));
+  box-shadow: 0 0 0 8px rgba(183,110,121,.12);
+  border:1px solid rgba(183,110,121,.25);
+}
+.node::after{
+  content:"";
+  position:absolute;
+  top: 20px;
+  width: 2px;
+  height: 44px;
+  background: linear-gradient(180deg, rgba(183,110,121,.35), transparent);
+  border-radius: 99px;
+}
+.t-item:last-child .node::after{ display:none; }
+
+.t-card{
+  padding: 16px 16px 14px;
+}
+.t-card h3{
+  margin:0 0 4px;
+  font-size: 15px;
+  font-weight: 1000;
+}
+.meta{
+  color: rgba(183,110,121,.92);
+  font-weight: 950;
+  font-size: 12px;
+}
+.t-desc{
+  margin-top: 8px;
+  color: var(--muted);
+  font-weight: 750;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+/* ===== Reveal animation ===== */
+.reveal{
+  opacity:0;
+  transform: translateY(14px);
+}
+.reveal.show{
+  opacity:1;
+  transform: translateY(0);
+  transition: opacity .65s ease, transform .65s ease;
+}
+
+/* ===== Modal ===== */
+.modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(31,36,48,.52);
+  backdrop-filter: blur(10px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding: 18px;
+  z-index: 80;
+}
+.modal.open{ display:flex; }
+.dialog{
+  width: min(980px, 100%);
+  border-radius: calc(var(--r) + 12px);
+  background: rgba(255,255,255,.92);
+  border:1px solid rgba(31,36,48,.10);
+  box-shadow: 0 28px 90px rgba(31,36,48,.25);
+  overflow:hidden;
+  transform: translateY(10px) scale(.985);
+  opacity:0;
+  transition: transform .22s ease, opacity .22s ease;
+}
+.modal.open .dialog{ transform: translateY(0) scale(1); opacity:1; }
+.dialog-top{
+  display:flex;
+  justify-content:space-between;
+  gap: 12px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid rgba(31,36,48,.08);
+  background: rgba(183,110,121,.05);
+}
+.dialog-top h3{ margin:0; font-size: 16px; font-weight: 1000; }
+.dialog-top small{ display:block; margin-top:6px; color: var(--muted); font-weight: 800; }
+.close{
+  width: 40px; height: 40px;
+  border-radius: 14px;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(255,255,255,.85);
+  cursor:pointer;
+  font-weight: 1000;
+}
+.dialog-main{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 14px;
+  padding: 14px;
+}
+.preview{
+  min-height: 340px;
+  border-radius: 18px;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(31,36,48,.03);
+  overflow:hidden;
+}
+.preview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.preview .ph{
+  height: 100%;
+  display:grid;
+  place-items:center;
+  color: rgba(31,36,48,.55);
+  font-weight: 950;
+}
+.meta-box{
+  border-radius: 18px;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(255,255,255,.75);
+  padding: 12px;
+  display:grid;
+  gap: 10px;
+  align-content:start;
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border:1px solid rgba(31,36,48,.08);
+  background: rgba(31,36,48,.02);
+}
+.row span{ color: var(--muted); font-weight: 900; font-size: 12px; }
+.row b{ font-weight: 950; font-size: 12px; color: rgba(31,36,48,.88); }
+.meta-box a{
+  text-decoration:none;
+  text-align:center;
+  padding: 11px 12px;
+  border-radius: 14px;
+  border:1px solid rgba(183,110,121,.22);
+  background: rgba(183,110,121,.10);
+  color: var(--text);
+  font-weight: 1000;
+}
+.meta-box a:hover{ filter: brightness(1.02); }
+
+/* ===== Footer ===== */
+footer{
+  margin-top: 40px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(31,36,48,.10);
+  color: rgba(31,36,48,.55);
+  font-weight: 800;
+  font-size: 12px;
+  text-align:center;
+}
+
+/* ===== RWD ===== */
+@media(max-width: 980px){
+  .hero-inner{ grid-template-columns: 1fr; }
+  .contact{ grid-template-columns: 1fr; }
+  .dialog-main{ grid-template-columns: 1fr; }
+}
+@media(max-width: 860px){
+  .work{ grid-column: span 6; }
+}
+@media(max-width: 520px){
+  .work{ grid-column: span 12; }
+  .topbar .inner{ padding: 12px 14px; }
+  .wrap{ padding: 18px 14px 90px; }
+}
+</style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="layer l1" id="bg1"></div>
+    <div class="layer l2" id="bg2"></div>
+    <div class="layer l3" id="bg3"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="inner">
+      <div class="brand">
+        <div class="mark"></div>
+        <div>
+          <b>Freelance Portfolio</b>
+          <small>Rosegold · White</small>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="#about">關於我</a>
+        <a href="#works">作品</a>
+        <a href="#timeline">經歷</a>
+        <a class="btn" href="#contact">合作洽談 →</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="card hero reveal" id="top">
+      <div class="hero-inner">
+        <div>
+          <div class="pill">個人接案版 · 玫瑰金 × 白</div>
+          <h1>把品牌做出「辨識度」<br/>把畫面做出「信任感」</h1>
+          <p class="lead">
+            我擅長品牌識別、網站視覺、電商活動頁與社群素材。
+            風格乾淨、有層次、重視商業目的與轉換節奏，適合需要「質感＋有效」的品牌。
+          </p>
+          <div class="cta">
+            <a class="btn" href="#works">看作品 ↓</a>
+            <a class="btn btn-ghost" href="#contact">我要合作</a>
+          </div>
+        </div>
+
+        <!-- Profile -->
+        <aside class="card profile reveal" id="about">
+          <div class="avatar">
+            <div class="photo" title="放你的個人照片">
+              <!-- ✅ 把 src 換成你的照片 -->
+              <!-- <img src="your-photo.jpg" alt="My photo"> -->
+              <div class="hint">把照片放這裡</div>
+            </div>
+            <div>
+              <b>你的名字｜視覺設計 / 品牌與網頁</b>
+              <small>接案方向：品牌識別、電商視覺、活動頁、社群套版</small>
+            </div>
+          </div>
+
+          <div class="pills">
+            <span class="rose">Branding</span>
+            <span>Web Visual</span>
+            <span>Shopline</span>
+            <span>Marketing Visual</span>
+            <span>HTML/CSS 微調</span>
+          </div>
+
+          <div style="color:var(--muted); font-weight:750; font-size:14px; line-height:1.9;">
+            這裡放你的「接案版自介」：建議 3～5 句，講清楚你能幫客戶解決什麼、你的風格與工作方式。
+            （如果你把 104 那段貼上來，我也可以幫你改成更「接案語氣」的版本）
+          </div>
+
+          <div class="contact" id="contact">
+            <!-- ✅ 改成你的連結 -->
+            <a href="mailto:your@email.com">Email <span>✉</span></a>
+            <a href="#" target="_blank" rel="noreferrer">作品雲端 / Behance <span>↗</span></a>
+            <a href="#" target="_blank" rel="noreferrer">IG / Threads <span>↗</span></a>
+            <a href="#" target="_blank" rel="noreferrer">報價 / 合作表單 <span>↗</span></a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- WORKS -->
+    <section class="section" id="works">
+      <div class="section-title reveal">
+        <h2>精選作品</h2>
+        <span>可放圖片縮圖（沒有圖片也能先用 placeholder）</span>
+      </div>
+
+      <div class="grid" id="workGrid"></div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="section" id="timeline">
+      <div class="section-title reveal">
+        <h2>工作經歷 / 接案歷程</h2>
+        <span>短短三行，讓人快速信任</span>
+      </div>
+
+      <div class="timeline" id="timelineList"></div>
+    </section>
+
+    <footer>© <span id="year"></span> Rosegold Freelance Portfolio</footer>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true">
+      <div class="dialog-top">
+        <div>
+          <h3 id="mTitle">作品標題</h3>
+          <small id="mSub">分類 · 年份 · 角色</small>
+        </div>
+        <button class="close" id="mClose">✕</button>
+      </div>
+
+      <div class="dialog-main">
+        <div class="preview" id="mPreview">
+          <div class="ph">放大預覽（可改成作品圖片）</div>
+        </div>
+
+        <div class="meta-box">
+          <div class="row"><span>亮點</span><b id="mHighlight">—</b></div>
+          <div class="row"><span>交付</span><b id="mDeliver">—</b></div>
+          <div class="row"><span>工具</span><b id="mTools">—</b></div>
+          <div class="row"><span>說明</span><b id="mDesc">—</b></div>
+          <a href="#" target="_blank" rel="noreferrer" id="mLink">查看作品連結 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ====== 資料：你只要改這兩區 ====== */
+const works = [
+  {
+    title:"品牌識別｜LOGO & 規範",
+    year:"2026",
+    cat:"Branding",
+    role:"Logo · VI System",
+    highlight:"建立可延展的識別系統，讓品牌更一致",
+    deliver:"Logo / Guideline / Social Kit",
+    tools:"Illustrator · Figma",
+    desc:"以留白與玫瑰金建立高級感，延伸到名片與社群模板。",
+    link:"#",
+    // ✅ 放作品縮圖（沒有就留空）
+    thumb:""
+  },
+  {
+    title:"電商活動頁｜Landing Page",
+    year:"2026",
+    cat:"Web Visual",
+    role:"UI Layout · Conversion",
+    highlight:"把複雜優惠整理成一眼就懂的版面層級",
+    deliver:"Landing / Banner",
+    tools:"Figma · Shopline",
+    desc:"用節奏與資訊層級引導閱讀，提高完成率與轉換意圖。",
+    link:"#",
+    thumb:""
+  },
+  {
+    title:"社群視覺｜貼文模板",
+    year:"2025",
+    cat:"Marketing Visual",
+    role:"Template · Key Visual",
+    highlight:"讓貼文有系列感，提升辨識度與收藏感",
+    deliver:"IG Post / Story Template",
+    tools:"Photoshop · Canva",
+    desc:"建立可快速套用的版型與色票規則，減少產圖成本。",
+    link:"#",
+    thumb:""
+  },
+  {
+    title:"包裝設計｜商品系列",
+    year:"2025",
+    cat:"Packaging",
+    role:"Packaging · Layout",
+    highlight:"用一致視覺規則，把小商品做出品牌感",
+    deliver:"Package / Label / Mockup",
+    tools:"Illustrator · Photoshop",
+    desc:"從主視覺到品項差異建立系統化邏輯。",
+    link:"#",
+    thumb:""
+  },
+  {
+    title:"網站視覺｜版面美化",
+    year:"2025",
+    cat:"Web Visual",
+    role:"Web Visual · CSS",
+    highlight:"不改系統也能讓網站質感大升級",
+    deliver:"UI polish / Component style",
+    tools:"HTML · CSS",
+    desc:"用一致的間距、字級、按鈕與卡片規則，讓整站更乾淨。",
+    link:"#",
+    thumb:""
+  },
+  {
+    title:"角色插畫｜品牌貼圖",
+    year:"2025",
+    cat:"Illustration",
+    role:"Character · Stickers",
+    highlight:"同一角色多表情多動作，保持一致辨識",
+    deliver:"Sticker set / Assets",
+    tools:"Procreate · Illustrator",
+    desc:"適合社群與行銷使用的角色素材組。",
+    link:"#",
+    thumb:""
+  }
+];
+
+const timelineItems = [
+  { date:"2026", title:"接案主軸：品牌識別 × 活動頁 × 社群套版", desc:"以商業目標為核心，做出一致、好讀、好轉換的視覺。" },
+  { date:"2025", title:"電商/品牌視覺專案協作", desc:"與行銷/工程協作上線，熟悉需求溝通與交付節奏。" },
+  { date:"2024", title:"網站視覺與素材系統化", desc:"建立可複用的版型與規範，讓內容產出更有效率。" },
+];
+
+/* ====== Render Works ====== */
+const grid = document.getElementById("workGrid");
+function tagRose(text){ return `<span class="tag rose">${text}</span>`; }
+function workHTML(w, idx){
+  const thumb = w.thumb
+    ? `<img src="${w.thumb}" alt="${w.title}">`
+    : `<div class="ph">作品縮圖位置</div>`;
+  return `
+    <article class="work reveal" data-idx="${idx}">
+      <div class="thumb">${thumb}</div>
+      <div class="work-body">
+        <h3 class="work-title">${w.title}</h3>
+        <p class="work-desc">${w.highlight}</p>
+        <div class="tags">
+          ${tagRose(w.cat)}
+          <span class="tag">${w.year}</span>
+          <span class="tag">${w.role}</span>
+        </div>
+      </div>
+    </article>
+  `;
+}
+grid.innerHTML = works.map(workHTML).join("");
+
+/* ====== Render Timeline ====== */
+const t = document.getElementById("timelineList");
+t.innerHTML = timelineItems.map(item => `
+  <div class="t-item reveal">
+    <div class="node"><div class="dot"></div></div>
+    <article class="card t-card">
+      <h3>${item.title}</h3>
+      <div class="meta">${item.date}</div>
+      <div class="t-desc">${item.desc}</div>
+    </article>
+  </div>
+`).join("");
+
+/* ====== Reveal on scroll ====== */
+let io = new IntersectionObserver((entries)=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      en.target.classList.add("show");
+      io.unobserve(en.target);
+    }
+  });
+},{ threshold: 0.12 });
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+/* ====== Hero mouse glow ====== */
+const hero = document.querySelector(".hero");
+hero.addEventListener("mousemove",(e)=>{
+  const r = hero.getBoundingClientRect();
+  const mx = ((e.clientX - r.left) / r.width) * 100;
+  const my = ((e.clientY - r.top) / r.height) * 100;
+  hero.style.setProperty("--mx", mx + "%");
+  hero.style.setProperty("--my", my + "%");
+});
+
+/* ====== Background scroll parallax ====== */
+const bg1 = document.getElementById("bg1");
+const bg2 = document.getElementById("bg2");
+const bg3 = document.getElementById("bg3");
+let raf=null;
+function onScroll(){
+  if(raf) return;
+  raf = requestAnimationFrame(()=>{
+    const y = window.scrollY || 0;
+    bg1.style.transform = `translate3d(0, ${y * -0.06}px, 0)`;
+    bg2.style.transform = `translate3d(0, ${y * -0.10}px, 0)`;
+    bg3.style.transform = `translate3d(0, ${y * -0.03}px, 0)`;
+    raf=null;
+  });
+}
+window.addEventListener("scroll", onScroll, {passive:true});
+onScroll();
+
+/* ====== Modal ====== */
+const modal = document.getElementById("modal");
+const mClose = document.getElementById("mClose");
+const mTitle = document.getElementById("mTitle");
+const mSub = document.getElementById("mSub");
+const mPreview = document.getElementById("mPreview");
+const mHighlight = document.getElementById("mHighlight");
+const mDeliver = document.getElementById("mDeliver");
+const mTools = document.getElementById("mTools");
+const mDesc = document.getElementById("mDesc");
+const mLink = document.getElementById("mLink");
+
+function openModal(w){
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+
+  mTitle.textContent = w.title;
+  mSub.textContent = `${w.cat} · ${w.year} · ${w.role}`;
+  mHighlight.textContent = w.highlight;
+  mDeliver.textContent = w.deliver;
+  mTools.textContent = w.tools;
+  mDesc.textContent = w.desc;
+  mLink.href = w.link || "#";
+  mLink.style.opacity = w.link ? 1 : .5;
+
+  if(w.thumb){
+    mPreview.innerHTML = `<img src="${w.thumb}" alt="${w.title}">`;
+  }else{
+    mPreview.innerHTML = `<div class="ph">放大預覽（可改成作品圖片）</div>`;
+  }
+}
+function closeModal(){
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+}
+mClose.addEventListener("click", closeModal);
+modal.addEventListener("click",(e)=>{ if(e.target === modal) closeModal(); });
+window.addEventListener("keydown",(e)=>{ if(e.key === "Escape") closeModal(); });
+
+document.querySelectorAll(".work").forEach(card=>{
+  card.addEventListener("click", ()=>{
+    const idx = Number(card.dataset.idx);
+    openModal(works[idx]);
+  });
+});
+
+/* Footer year */
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
