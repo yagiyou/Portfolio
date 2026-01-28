@@ -777,7 +777,7 @@ const works = [
     role:"客製化一頁式網站",
     highlight:"幫小型居酒屋，打造實用又符合店家的視覺網頁形象。",
     deliver:"一頁式網站",
-    tools:"html/JS/CSS · Github",
+    tools:"html/JS/CSS/RWD響應式· Github",
     desc:"針對小型店家，一頁式的網站，能讓客人一目了然，並且操作方便的同時，保留該店家的風格。",
     link:"https://yagiyou.github.io/SUISEI-CLUB/",
     thumb:""
@@ -832,7 +832,7 @@ function tagRose(text){ return `<span class="tag rose">${text}</span>`; }
 function workHTML(w, idx){
   const thumb = w.thumb
     ? `<img src="${w.thumb}" alt="${w.title}">`
-    : `<div class="ph">作品縮圖位置</div>`;
+    : `<div class="ph">images/work01.jpg</div>`;
   return `
     <article class="work reveal" data-idx="${idx}">
       <div class="thumb">${thumb}</div>
@@ -972,6 +972,7 @@ if(yearEl) yearEl.textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
+
 
 
 
