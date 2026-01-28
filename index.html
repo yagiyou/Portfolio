@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>個人接案作品集｜Rosegold Portfolio</title>
 
-<!-- ✅ 有 JS 才加 .js class（沒 JS 也會正常顯示） -->
 <script>
   document.documentElement.classList.add('js');
 </script>
 
-<!-- 字體：襯線（標題）＋無襯線（內文） -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -30,143 +28,18 @@
   --max:1100px;
   --shadow:0 18px 60px rgba(31,36,48,.10);
 
-  --serif: "Cormorant Garamond", serif;
-  --sans: system-ui,-apple-system,"Noto Sans TC","PingFang TC",sans-serif;
+  --serif:"Cormorant Garamond", serif;
+  --sans:system-ui,-apple-system,"Noto Sans TC","PingFang TC",sans-serif;
 }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  font-family: var(--sans);
+  font-family:var(--sans);
   color:var(--text);
   background:var(--bg);
   line-height:1.85;
   overflow-x:hidden;
-}
-
-/* =========================
-   ✅ 進站：霧面→顯現
-========================= */
-.js body{
-  opacity: 0;
-  filter: blur(16px) saturate(.9);
-  transform: translateY(10px);
-}
-.js body.is-ready{
-  opacity: 1;
-  filter: blur(0) saturate(1);
-  transform: translateY(0);
-  transition: opacity .7s ease, filter .9s ease, transform .8s ease;
-}
-
-/* =========================
-   ✅ LOADING（全螢幕）
-========================= */
-.loader{
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display:grid;
-  place-items:center;
-  background:
-    radial-gradient(1000px 700px at 50% 45%, rgba(240,217,221,.55), transparent 65%),
-    linear-gradient(180deg, #fff, #fff);
-  transition: opacity .5s ease, visibility .5s ease;
-}
-.loader.hide{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-}
-
-.loader-inner{
-  width: min(520px, 92vw);
-  display:grid;
-  place-items:center;
-  gap: 18px;
-  text-align:center;
-}
-
-/* 水晶：純 CSS（晶面慢慢長出玫瑰金） */
-.crystal{
-  width: 120px; height: 120px;
-  position: relative;
-  filter: drop-shadow(0 18px 30px rgba(183,110,121,.18));
-  transform-origin: 50% 60%;
-  animation: crystalFloat 2.3s ease-in-out infinite;
-}
-@keyframes crystalFloat{
-  0%,100%{ transform: translateY(0) rotate(-1deg); }
-  50%{ transform: translateY(-8px) rotate(1deg); }
-}
-.crystal::before{
-  content:"";
-  position:absolute;
-  inset: 0;
-  border-radius: 26px;
-  clip-path: polygon(50% 0%, 85% 18%, 100% 50%, 78% 100%, 22% 100%, 0% 50%, 15% 18%);
-  background:
-    radial-gradient(circle at 35% 25%, rgba(255,255,255,.95), rgba(255,255,255,0) 45%),
-    linear-gradient(135deg, rgba(220,176,185,.22), rgba(183,110,121,.10));
-  border: 1px solid rgba(183,110,121,.22);
-}
-.crystal::after{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius: 26px;
-  clip-path: polygon(50% 0%, 85% 18%, 100% 50%, 78% 100%, 22% 100%, 0% 50%, 15% 18%);
-  background:
-    linear-gradient(120deg,
-      rgba(183,110,121,0) 0%,
-      rgba(183,110,121,.05) 20%,
-      rgba(214,163,173,.22) 42%,
-      rgba(183,110,121,.35) 62%,
-      rgba(183,110,121,0) 100%);
-  mix-blend-mode: multiply;
-  opacity: 0;
-  transform: scale(.98);
-  animation: growRose 1.6s ease forwards, shineSweep 1.8s ease 1.2s infinite;
-}
-@keyframes growRose{
-  0%{ opacity:0; transform: scale(.92); filter: blur(2px); }
-  100%{ opacity:1; transform: scale(1); filter: blur(0); }
-}
-@keyframes shineSweep{
-  0%{ background-position: -140px 0; }
-  100%{ background-position: 220px 0; }
-}
-
-.loader-title{
-  font-family: var(--serif);
-  font-weight: 700;
-  letter-spacing: .2px;
-  font-size: clamp(22px, 4vw, 34px);
-  line-height: 1.05;
-  margin:0;
-  opacity:.95;
-}
-.loader-sub{
-  margin:0;
-  color: rgba(31,36,48,.62);
-  font-weight: 800;
-  font-size: 13px;
-}
-.loader-bar{
-  width: min(380px, 82vw);
-  height: 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(31,36,48,.10);
-  background: rgba(31,36,48,.04);
-  overflow:hidden;
-}
-.loader-bar > i{
-  display:block;
-  height: 100%;
-  width: 0%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(183,110,121,.55), rgba(214,163,173,.25));
-  box-shadow: 0 10px 22px rgba(183,110,121,.10);
 }
 
 /* =========================
@@ -216,11 +89,7 @@ body{
 }
 
 /* ===== Layout ===== */
-.wrap{
-  max-width:var(--max);
-  margin:0 auto;
-  padding: 22px 18px 100px;
-}
+.wrap{ max-width:var(--max); margin:0 auto; padding:22px 18px 100px; }
 
 /* ===== Topbar ===== */
 .topbar{
@@ -240,12 +109,7 @@ body{
   align-items:center;
   gap:12px;
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  user-select:none;
-}
+.brand{ display:flex; align-items:center; gap:10px; user-select:none; }
 .mark{
   width:34px;height:34px;border-radius:14px;
   background:
@@ -256,9 +120,7 @@ body{
 }
 .brand b{font-weight:950}
 .brand small{display:block;color:var(--muted);font-weight:800;font-size:12px;margin-top:2px}
-.nav{
-  display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end;
-}
+.nav{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
 .nav a{
   text-decoration:none;
   color:var(--muted);
@@ -298,11 +160,7 @@ body{
 }
 
 /* ===== Hero ===== */
-.hero{
-  margin-top: 18px;
-  position:relative;
-  overflow:hidden;
-}
+.hero{ margin-top:18px; position:relative; overflow:hidden; }
 .hero::before{
   content:"";
   position:absolute;
@@ -320,7 +178,6 @@ body{
   gap: 16px;
   align-items: stretch;
 }
-
 .pill{
   display:inline-flex;
   align-items:center;
@@ -335,7 +192,7 @@ body{
   width: fit-content;
 }
 
-/* ✅ 你要的：Crystal Collection 彈跳式襯線字 */
+/* 4) Crystal Collection 彈跳式襯線字（但：只有 Yes 才啟動） */
 .hero-title{
   margin: 12px 0 8px;
   font-family: var(--serif);
@@ -351,19 +208,19 @@ body{
   background-clip:text;
   color: transparent;
 }
-.js .hero-title{
-  transform: translateY(12px) scale(.98);
-  opacity: 0;
-}
-.js .hero-title.pop{
+
+/* 初始先不要顯示動畫狀態（等 Yes 才加 .play） */
+.js .hero-title{ opacity:1; transform:none; }
+.js .hero-title.wait{ opacity:0; transform: translateY(14px) scale(.98); }
+.js .play .hero-title.wait{
   opacity:1;
   transform: translateY(0) scale(1);
   animation: ccPop .78s cubic-bezier(.2,.9,.2,1.2) both;
 }
 @keyframes ccPop{
-  0%{ transform: translateY(18px) scale(.92); }
-  60%{ transform: translateY(-6px) scale(1.03); }
-  100%{ transform: translateY(0) scale(1); }
+  0%{ transform: translateY(18px) scale(.92); opacity:0; }
+  60%{ transform: translateY(-6px) scale(1.03); opacity:1; }
+  100%{ transform: translateY(0) scale(1); opacity:1; }
 }
 
 .lead{
@@ -374,17 +231,8 @@ body{
   max-width: 60ch;
   white-space: pre-line;
 }
-.cta{
-  margin-top: 14px;
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.btn-ghost{
-  background: rgba(31,36,48,.03);
-  border-color: rgba(31,36,48,.10);
-  box-shadow:none;
-}
+.cta{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
+.btn-ghost{ background: rgba(31,36,48,.03); border-color: rgba(31,36,48,.10); box-shadow:none; }
 .btn-ghost:hover{ transform: translateY(-1px); }
 
 .profile{
@@ -394,7 +242,7 @@ body{
   align-content:start;
 }
 
-/* ✅ 你要的：照片左→右滑入、簡介右→左淡入 */
+/* 4) 照片左→右滑入，簡介右→左淡入（但：只有 Yes 才啟動） */
 .avatar{
   display:grid;
   grid-template-columns: 90px 1fr;
@@ -412,20 +260,13 @@ body{
   overflow:hidden;
   position:relative;
 }
-.photo img{
-  width:100%; height:100%;
-  object-fit:cover;
-  display:block;
-}
+.photo img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-.js .photo{
-  opacity:0;
-  transform: translateX(-28px);
-}
-.js .photo.in{
+.js .photo.wait{ opacity:0; transform: translateX(-28px); }
+.js .play .photo.wait{
   opacity:1;
   transform: translateX(0);
-  transition: opacity .7s ease, transform .7s ease;
+  transition: opacity .7s ease .05s, transform .7s ease .05s;
 }
 
 .avatar b{ font-size: 15px; font-weight: 1000; }
@@ -437,14 +278,11 @@ body{
   font-size:14px;
   line-height:1.9;
 }
-.js .about-text{
-  opacity:0;
-  transform: translateX(22px);
-}
-.js .about-text.in{
+.js .about-text.wait{ opacity:0; transform: translateX(22px); }
+.js .play .about-text.wait{
   opacity:1;
   transform: translateX(0);
-  transition: opacity .8s ease .08s, transform .8s ease .08s;
+  transition: opacity .8s ease .18s, transform .8s ease .18s;
 }
 
 .pills{ display:flex; flex-wrap:wrap; gap:8px; }
@@ -494,23 +332,11 @@ body{
   flex-wrap:wrap;
   margin-bottom: 12px;
 }
-.section-title h2{
-  margin:0;
-  font-size: 18px;
-  font-weight: 1000;
-}
-.section-title span{
-  color: var(--muted);
-  font-weight: 800;
-  font-size: 13px;
-}
+.section-title h2{ margin:0; font-size: 18px; font-weight: 1000; }
+.section-title span{ color: var(--muted); font-weight: 800; font-size: 13px; }
 
 /* ===== Works Gallery ===== */
-.grid{
-  display:grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 14px;
-}
+.grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
 .work{
   grid-column: span 4;
   border-radius: calc(var(--r) + 8px);
@@ -538,12 +364,7 @@ body{
   position:relative;
   overflow:hidden;
 }
-.thumb img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
+.thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 .thumb .ph{
   position:absolute;
   inset: 14px;
@@ -557,11 +378,7 @@ body{
   font-size: 12px;
 }
 .work-body{ padding: 14px 14px 16px; }
-.work-title{
-  margin:0 0 6px;
-  font-weight: 1000;
-  font-size: 15px;
-}
+.work-title{ margin:0 0 6px; font-weight: 1000; font-size: 15px; }
 .work-desc{
   margin:0 0 12px;
   color: var(--muted);
@@ -588,12 +405,7 @@ body{
 
 /* ===== Timeline ===== */
 .timeline{ margin-top: 12px; display:grid; gap: 14px; }
-.t-item{
-  display:grid;
-  grid-template-columns: 40px 1fr;
-  gap: 14px;
-  align-items:start;
-}
+.t-item{ display:grid; grid-template-columns: 40px 1fr; gap: 14px; align-items:start; }
 .node{ display:flex; justify-content:center; position:relative; }
 .dot{
   width:14px;height:14px;border-radius:999px;
@@ -611,131 +423,10 @@ body{
   border-radius: 99px;
 }
 .t-item:last-child .node::after{ display:none; }
-
 .t-card{ padding: 16px 16px 14px; }
-.t-card h3{
-  margin:0 0 4px;
-  font-size: 15px;
-  font-weight: 1000;
-}
-.meta{
-  color: rgba(183,110,121,.92);
-  font-weight: 950;
-  font-size: 12px;
-}
-.t-desc{
-  margin-top: 8px;
-  color: var(--muted);
-  font-weight: 750;
-  font-size: 13px;
-  line-height: 1.85;
-}
-
-/* ===== Reveal：保留你原本的（一般區塊） ===== */
-.reveal{ opacity:1; transform:none; }
-.js .reveal{ opacity:0; transform: translateY(14px); }
-.js .reveal.show{
-  opacity:1;
-  transform: translateY(0);
-  transition: opacity .65s ease, transform .65s ease;
-}
-
-/* ===== Modal（作品預覽） ===== */
-.modal{
-  position: fixed;
-  inset: 0;
-  background: rgba(31,36,48,.52);
-  backdrop-filter: blur(10px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding: 18px;
-  z-index: 80;
-}
-.modal.open{ display:flex; }
-.dialog{
-  width: min(980px, 100%);
-  border-radius: calc(var(--r) + 12px);
-  background: rgba(255,255,255,.92);
-  border:1px solid rgba(31,36,48,.10);
-  box-shadow: 0 28px 90px rgba(31,36,48,.25);
-  overflow:hidden;
-  transform: translateY(10px) scale(.985);
-  opacity:0;
-  transition: transform .22s ease, opacity .22s ease;
-}
-.modal.open .dialog{ transform: translateY(0) scale(1); opacity:1; }
-.dialog-top{
-  display:flex;
-  justify-content:space-between;
-  gap: 12px;
-  padding: 14px 14px 10px;
-  border-bottom: 1px solid rgba(31,36,48,.08);
-  background: rgba(183,110,121,.05);
-}
-.dialog-top h3{ margin:0; font-size: 16px; font-weight: 1000; }
-.dialog-top small{ display:block; margin-top:6px; color: var(--muted); font-weight: 800; }
-.close{
-  width: 40px; height: 40px;
-  border-radius: 14px;
-  border:1px solid rgba(31,36,48,.10);
-  background: rgba(255,255,255,.85);
-  cursor:pointer;
-  font-weight: 1000;
-}
-.dialog-main{
-  display:grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 14px;
-  padding: 14px;
-}
-.preview{
-  min-height: 340px;
-  border-radius: 18px;
-  border:1px solid rgba(31,36,48,.10);
-  background: rgba(31,36,48,.03);
-  overflow:hidden;
-}
-.preview img{ width:100%; height:100%; object-fit:cover; display:block; }
-.preview .ph{
-  height: 100%;
-  display:grid;
-  place-items:center;
-  color: rgba(31,36,48,.55);
-  font-weight: 950;
-}
-
-.meta-box{
-  border-radius: 18px;
-  border:1px solid rgba(31,36,48,.10);
-  background: rgba(255,255,255,.75);
-  padding: 12px;
-  display:grid;
-  gap: 10px;
-  align-content:start;
-}
-.row{
-  display:flex;
-  justify-content:space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  border:1px solid rgba(31,36,48,.08);
-  background: rgba(31,36,48,.02);
-}
-.row span{ color: var(--muted); font-weight: 900; font-size: 12px; }
-.row b{ font-weight: 950; font-size: 12px; color: rgba(31,36,48,.88); }
-.meta-box a{
-  text-decoration:none;
-  text-align:center;
-  padding: 11px 12px;
-  border-radius: 14px;
-  border:1px solid rgba(183,110,121,.22);
-  background: rgba(183,110,121,.10);
-  color: var(--text);
-  font-weight: 1000;
-}
-.meta-box a:hover{ filter: brightness(1.02); }
+.t-card h3{ margin:0 0 4px; font-size: 15px; font-weight: 1000; }
+.meta{ color: rgba(183,110,121,.92); font-weight: 950; font-size: 12px; }
+.t-desc{ margin-top: 8px; color: var(--muted); font-weight: 750; font-size: 13px; line-height: 1.85; }
 
 /* ===== Footer ===== */
 footer{
@@ -749,26 +440,164 @@ footer{
 }
 
 /* =========================
-   ✅ 進入水晶洞確認視窗（自製）
+   1) LOADING（一定先出現）
+========================= */
+.loader{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(1000px 700px at 50% 45%, rgba(240,217,221,.55), transparent 65%),
+    linear-gradient(180deg, #fff, #fff);
+  opacity:1;
+  visibility:visible;
+  transition: opacity .55s ease, visibility .55s ease;
+}
+.loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+
+.loader-inner{
+  width: min(520px, 92vw);
+  display:grid;
+  place-items:center;
+  gap: 18px;
+  text-align:center;
+}
+
+/* 水晶：玫瑰金晶面慢慢長出 + 閃光掃過 */
+.crystal{
+  width: 120px; height: 120px;
+  position: relative;
+  filter: drop-shadow(0 18px 30px rgba(183,110,121,.18));
+  transform-origin: 50% 60%;
+  animation: crystalFloat 2.3s ease-in-out infinite;
+}
+@keyframes crystalFloat{
+  0%,100%{ transform: translateY(0) rotate(-1deg); }
+  50%{ transform: translateY(-8px) rotate(1deg); }
+}
+.crystal::before{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-radius: 26px;
+  clip-path: polygon(50% 0%, 85% 18%, 100% 50%, 78% 100%, 22% 100%, 0% 50%, 15% 18%);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255,255,255,.95), rgba(255,255,255,0) 45%),
+    linear-gradient(135deg, rgba(220,176,185,.22), rgba(183,110,121,.10));
+  border: 1px solid rgba(183,110,121,.22);
+}
+.crystal::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: 26px;
+  clip-path: polygon(50% 0%, 85% 18%, 100% 50%, 78% 100%, 22% 100%, 0% 50%, 15% 18%);
+
+  /* 玫瑰金晶面（會「長出來」） */
+  background:
+    linear-gradient(120deg,
+      rgba(183,110,121,0) 0%,
+      rgba(183,110,121,.06) 18%,
+      rgba(214,163,173,.22) 40%,
+      rgba(183,110,121,.38) 62%,
+      rgba(183,110,121,0) 100%);
+  background-size: 280px 180px;
+  background-position: -200px 0;
+
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transform: scale(.95);
+  filter: blur(1px);
+  animation: growRose 1.5s ease forwards, shineSweep 1.65s ease 1.05s infinite;
+}
+@keyframes growRose{
+  0%{ opacity:0; transform: scale(.90); filter: blur(2px); }
+  100%{ opacity:1; transform: scale(1); filter: blur(0); }
+}
+@keyframes shineSweep{
+  0%{ background-position: -240px 0; }
+  100%{ background-position: 260px 0; }
+}
+
+.loader-title{
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.05;
+  margin:0;
+  opacity:.95;
+}
+.loader-sub{
+  margin:0;
+  color: rgba(31,36,48,.62);
+  font-weight: 800;
+  font-size: 13px;
+}
+.loader-bar{
+  width: min(380px, 82vw);
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(31,36,48,.10);
+  background: rgba(31,36,48,.04);
+  overflow:hidden;
+}
+.loader-bar > i{
+  display:block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(183,110,121,.55), rgba(214,163,173,.25));
+  box-shadow: 0 10px 22px rgba(183,110,121,.10);
+}
+
+/* =========================
+   2) 開場霧面（Loading 結束後出現）
+========================= */
+.frost{
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display:none;
+  background: rgba(255,255,255,.25);
+  backdrop-filter: blur(18px) saturate(.92);
+  -webkit-backdrop-filter: blur(18px) saturate(.92);
+}
+.frost.show{ display:block; }
+.frost::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(900px 600px at 50% 45%, rgba(240,217,221,.55), transparent 65%),
+    radial-gradient(700px 520px at 20% 20%, rgba(183,110,121,.10), transparent 68%),
+    radial-gradient(700px 520px at 80% 30%, rgba(214,163,173,.12), transparent 70%);
+  opacity:.9;
+}
+
+/* =========================
+   3) Portal 確認視窗（霧面上面）
 ========================= */
 .portal{
   position: fixed;
   inset: 0;
-  z-index: 120;
+  z-index: 9100;
   display:none;
   align-items:center;
   justify-content:center;
   padding: 18px;
-  background: rgba(31,36,48,.45);
-  backdrop-filter: blur(10px);
+  background: rgba(31,36,48,.20);
 }
 .portal.open{ display:flex; }
+
 .portal-card{
   width: min(520px, 100%);
   border-radius: calc(var(--r) + 14px);
   background: rgba(255,255,255,.92);
   border: 1px solid rgba(31,36,48,.10);
-  box-shadow: 0 30px 90px rgba(31,36,48,.22);
+  box-shadow: 0 30px 90px rgba(31,36,48,.18);
   overflow:hidden;
   transform: translateY(10px) scale(.99);
   opacity:0;
@@ -794,15 +623,8 @@ footer{
   font-weight: 800;
 }
 
-.portal-body{
-  padding: 14px 16px 16px;
-  display:grid;
-  gap: 12px;
-}
-.portal-actions{
-  display:flex;
-  gap: 10px;
-}
+.portal-body{ padding: 14px 16px 16px; display:grid; gap: 12px; }
+.portal-actions{ display:flex; gap: 10px; }
 .portal-actions button{
   flex:1;
   padding: 12px 12px;
@@ -838,11 +660,8 @@ footer{
 @media(max-width: 980px){
   .hero-inner{ grid-template-columns: 1fr; }
   .contact{ grid-template-columns: 1fr; }
-  .dialog-main{ grid-template-columns: 1fr; }
 }
-@media(max-width: 860px){
-  .work{ grid-column: span 6; }
-}
+@media(max-width: 860px){ .work{ grid-column: span 6; } }
 @media(max-width: 520px){
   .work{ grid-column: span 12; }
   .topbar .inner{ padding: 12px 14px; }
@@ -852,14 +671,35 @@ footer{
 </head>
 
 <body>
-  <!-- ✅ LOADING -->
+  <!-- 1) LOADING -->
   <div class="loader" id="loader" aria-hidden="false">
     <div class="loader-inner">
       <div class="crystal" aria-hidden="true"></div>
       <h1 class="loader-title">Crystal Collection</h1>
       <p class="loader-sub">玫瑰金水晶生成中…</p>
-      <div class="loader-bar" aria-label="loading">
-        <i id="loaderFill"></i>
+      <div class="loader-bar"><i id="loaderFill"></i></div>
+    </div>
+  </div>
+
+  <!-- 2) 開場霧面 -->
+  <div class="frost" id="frost" aria-hidden="true"></div>
+
+  <!-- 3) Portal -->
+  <div class="portal" id="portal" aria-hidden="true">
+    <div class="portal-card">
+      <div class="portal-top">
+        <b>你確定好進入水晶洞的世界一探究竟嗎？</b>
+        <small>Yes 進入作品區 · No 先不要（哭哭一下）</small>
+      </div>
+      <div class="portal-body">
+        <div class="portal-actions">
+          <button class="yes" id="portalYes">Yes，我準備好了 ✨</button>
+          <button id="portalNo">No…我還在猶豫</button>
+        </div>
+        <div class="portal-cry" id="portalCry">
+          <i>🥺</i>
+          嗚嗚…那我先帶你去 Google…
+        </div>
       </div>
     </div>
   </div>
@@ -890,13 +730,13 @@ footer{
 
   <main class="wrap">
     <!-- HERO -->
-    <section class="card hero reveal" id="top">
+    <section class="card hero" id="top">
       <div class="hero-inner">
         <div>
           <div class="pill">Crystal · Freelance Visual Designer</div>
 
-          <!-- ✅ Crystal Collection 彈跳襯線 -->
-          <div class="hero-title" id="heroTitle">
+          <!-- 4) Yes 後才彈跳 -->
+          <div class="hero-title wait" id="heroTitle">
             <span class="cc">Crystal Collection</span><br/>
             把品牌做出「辨識度」<br/>把畫面做出「信任感」
           </div>
@@ -912,13 +752,13 @@ footer{
         </div>
 
         <!-- Profile -->
-        <aside class="card profile reveal" id="about">
+        <aside class="card profile" id="about">
           <div class="avatar">
-            <div class="photo" id="avatarPhoto" title="放你的個人照片">
+            <div class="photo wait" id="avatarPhoto" title="放你的個人照片">
               <img src="https://yagidesign-studio.com/wp-content/uploads/2026/01/snimgJFUvbc.webp" alt="My photo">
             </div>
             <div>
-              <b>Crystal｜視覺設計 / 品品牌與網頁</b>
+              <b>Crystal｜視覺設計 / 品牌與網頁</b>
               <small>品牌識別、一頁式形象網頁、活動頁</small>
             </div>
           </div>
@@ -931,7 +771,7 @@ footer{
             <span>HTML/CSS 微調</span>
           </div>
 
-          <div class="about-text" id="aboutText">
+          <div class="about-text wait" id="aboutText">
 我是一位擅長把品牌故事轉化為有溫度視覺的設計師，從品牌識別、包裝到網站畫面，協助品牌建立清楚且一致的形象。
 除了視覺表現，我也熟悉 Shopline 網頁設計與 HTML / CSS 微調，能讓設計真正落實在實際銷售與使用流程中。
 我相信好的設計不只是好看，而是能幫助品牌被理解、被信任，並在市場中留下記憶點。
@@ -949,77 +789,28 @@ footer{
 
     <!-- WORKS -->
     <section class="section" id="works">
-      <div class="section-title reveal">
+      <div class="section-title">
         <h2>精選作品</h2>
         <span>點卡片可開啟預覽</span>
       </div>
-
       <div class="grid" id="workGrid"></div>
     </section>
 
     <!-- TIMELINE -->
     <section class="section" id="timeline">
-      <div class="section-title reveal">
+      <div class="section-title">
         <h2>工作經歷 / 接案歷程</h2>
         <span>總年資：6–7 年</span>
       </div>
-
       <div class="timeline" id="timelineList"></div>
     </section>
 
     <footer>© <span id="year"></span> Crystal 保留一切權利。</footer>
   </main>
 
-  <!-- Modal -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="dialog" role="dialog" aria-modal="true">
-      <div class="dialog-top">
-        <div>
-          <h3 id="mTitle">作品標題</h3>
-          <small id="mSub">分類 · 年份 · 角色</small>
-        </div>
-        <button class="close" id="mClose">✕</button>
-      </div>
-
-      <div class="dialog-main">
-        <div class="preview" id="mPreview">
-          <div class="ph">放大預覽（可放作品圖片）</div>
-        </div>
-
-        <div class="meta-box">
-          <div class="row"><span>亮點</span><b id="mHighlight">—</b></div>
-          <div class="row"><span>交付</span><b id="mDeliver">—</b></div>
-          <div class="row"><span>工具</span><b id="mTools">—</b></div>
-          <div class="row"><span>說明</span><b id="mDesc">—</b></div>
-          <a href="#" target="_blank" rel="noreferrer" id="mLink">查看作品連結 →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ✅ 進入水晶洞確認視窗 -->
-  <div class="portal" id="portal" aria-hidden="true">
-    <div class="portal-card">
-      <div class="portal-top">
-        <b>你確定好進入水晶洞的世界一探究竟嗎？</b>
-        <small>請點選下方按鈕</small>
-      </div>
-      <div class="portal-body">
-        <div class="portal-actions">
-          <button class="yes" id="portalYes">Yes，我準備好了 ✨</button>
-          <button id="portalNo">No…先不要</button>
-        </div>
-        <div class="portal-cry" id="portalCry">
-          <i>🥺</i>
-          嗚嗚…那我先帶你去 Google…
-        </div>
-      </div>
-    </div>
-  </div>
-
 <script>
 /* =========================
-   ✅ 你只要改這兩區
+   ✅ 你只要改這兩區（保留原本）
 ========================= */
 const works = [
   {
@@ -1120,7 +911,7 @@ function safeImg(src, alt){
 }
 
 /* =========================
-   Render Works
+   Render Works & Timeline
 ========================= */
 const grid = document.getElementById("workGrid");
 function tagRose(text){ return `<span class="tag rose">${escapeHTML(text)}</span>`; }
@@ -1129,7 +920,7 @@ function workHTML(w, idx){
     ? safeImg(w.thumb, w.title)
     : `<div class="ph">請填入：thumb:"images/work01.jpg"</div>`;
   return `
-    <article class="work reveal" data-idx="${idx}">
+    <article class="work" data-idx="${idx}">
       <div class="thumb">${thumb}</div>
       <div class="work-body">
         <h3 class="work-title">${escapeHTML(w.title)}</h3>
@@ -1145,12 +936,9 @@ function workHTML(w, idx){
 }
 grid.innerHTML = works.map(workHTML).join("");
 
-/* =========================
-   Render Timeline
-========================= */
 const t = document.getElementById("timelineList");
 t.innerHTML = timelineItems.map(item => `
-  <div class="t-item reveal">
+  <div class="t-item">
     <div class="node"><div class="dot"></div></div>
     <article class="card t-card">
       <h3>${escapeHTML(item.title)}</h3>
@@ -1160,25 +948,8 @@ t.innerHTML = timelineItems.map(item => `
   </div>
 `).join("");
 
-/* =========================
-   Reveal on scroll（含 fallback）
-========================= */
-(function setupReveal(){
-  const targets = document.querySelectorAll(".reveal");
-  if(!("IntersectionObserver" in window)){
-    targets.forEach(el => el.classList.add("show"));
-    return;
-  }
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(en=>{
-      if(en.isIntersecting){
-        en.target.classList.add("show");
-        io.unobserve(en.target);
-      }
-    });
-  },{ threshold: 0.12 });
-  targets.forEach(el => io.observe(el));
-})();
+/* Footer year */
+document.getElementById("year").textContent = new Date().getFullYear();
 
 /* =========================
    Hero mouse glow（安全判斷）
@@ -1216,154 +987,95 @@ window.addEventListener("scroll", onScroll, {passive:true});
 onScroll();
 
 /* =========================
-   Modal
+   ✅ 劇場流程（嚴格依序）
+   1 Loading → 2 Frost → 3 Portal
+   Yes: scroll works → 4 play animations
+   No: cry → google
 ========================= */
-const modal = document.getElementById("modal");
-const mClose = document.getElementById("mClose");
-const mTitle = document.getElementById("mTitle");
-const mSub = document.getElementById("mSub");
-const mPreview = document.getElementById("mPreview");
-const mHighlight = document.getElementById("mHighlight");
-const mDeliver = document.getElementById("mDeliver");
-const mTools = document.getElementById("mTools");
-const mDesc = document.getElementById("mDesc");
-const mLink = document.getElementById("mLink");
-
-function openModal(w){
-  if(!modal) return;
-  modal.classList.add("open");
-  modal.setAttribute("aria-hidden","false");
-  document.body.style.overflow="hidden";
-
-  mTitle.textContent = w.title || "作品";
-  mSub.textContent = `${w.cat || ""} · ${w.year || ""} · ${w.role || ""}`.replaceAll("  "," ").trim();
-  mHighlight.textContent = w.highlight || "—";
-  mDeliver.textContent = w.deliver || "—";
-  mTools.textContent = w.tools || "—";
-  mDesc.textContent = w.desc || "—";
-  mLink.href = w.link || "#";
-  mLink.style.opacity = w.link && w.link !== "#" ? 1 : .5;
-
-  if(w.thumb){
-    mPreview.innerHTML = safeImg(w.thumb, w.title);
-  }else{
-    mPreview.innerHTML = `<div class="ph">放大預覽（可放作品圖片）</div>`;
-  }
-}
-function closeModal(){
-  if(!modal) return;
-  modal.classList.remove("open");
-  modal.setAttribute("aria-hidden","true");
-  document.body.style.overflow="";
-}
-if(mClose) mClose.addEventListener("click", closeModal);
-if(modal){
-  modal.addEventListener("click",(e)=>{ if(e.target === modal) closeModal(); });
-}
-window.addEventListener("keydown",(e)=>{ if(e.key === "Escape") closeModal(); });
-
-document.querySelectorAll(".work").forEach(card=>{
-  card.addEventListener("click", ()=>{
-    const idx = Number(card.dataset.idx);
-    openModal(works[idx]);
-  });
-});
-
-/* Footer year */
-const yearEl = document.getElementById("year");
-if(yearEl) yearEl.textContent = new Date().getFullYear();
-
-/* =========================
-   ✅ 進站流程總控（Loading → 霧面顯現 → 標題彈跳 → 進入確認視窗）
-========================= */
-(function introFlow(){
-  const loader = document.getElementById("loader");
-  const fill = document.getElementById("loaderFill");
-  const heroTitle = document.getElementById("heroTitle");
-  const avatarPhoto = document.getElementById("avatarPhoto");
-  const aboutText = document.getElementById("aboutText");
-
-  // 假進度（視覺用）
-  let p = 0;
-  const timer = setInterval(()=>{
-    p = Math.min(100, p + Math.random()*12);
-    if(fill) fill.style.width = p + "%";
-    if(p >= 100) clearInterval(timer);
-  }, 140);
-
-  // 等圖片/資源差不多了再收
-  window.addEventListener("load", ()=>{
-    // 讓 loading 至少存在一下，不要閃一下就沒
-    const minShow = 900;
-    setTimeout(()=>{
-      if(loader) loader.classList.add("hide");
-
-      // 霧面→顯現
-      document.body.classList.add("is-ready");
-
-      // 標題彈跳
-      setTimeout(()=> heroTitle && heroTitle.classList.add("pop"), 260);
-
-      // 你要的：照片左→右、簡介右→左
-      setTimeout(()=> avatarPhoto && avatarPhoto.classList.add("in"), 520);
-      setTimeout(()=> aboutText && aboutText.classList.add("in"), 620);
-
-      // 再跳出確認視窗
-      setTimeout(()=> openPortal(), 1050);
-
-    }, minShow);
-  });
-})();
-
-/* =========================
-   ✅ 進入水晶洞 Portal（Yes→作品區，No→哭哭→Google）
-========================= */
+const loader = document.getElementById("loader");
+const loaderFill = document.getElementById("loaderFill");
+const frost = document.getElementById("frost");
 const portal = document.getElementById("portal");
 const portalYes = document.getElementById("portalYes");
 const portalNo = document.getElementById("portalNo");
 const portalCry = document.getElementById("portalCry");
 
+let allowPlay = false; // Yes 才 true
+
+function startLoading(){
+  // 讓 loading 必定可見（避免你遇到「沒有 loading」）
+  loader.classList.remove("hide");
+
+  // 假進度條：穩定上升到 100
+  let p = 0;
+  const tick = setInterval(()=>{
+    p = Math.min(100, p + (6 + Math.random()*10));
+    loaderFill.style.width = p + "%";
+    if(p >= 100){
+      clearInterval(tick);
+      // 保證至少顯示一段時間：不會一閃就消失
+      setTimeout(endLoading, 420);
+    }
+  }, 140);
+}
+
+function endLoading(){
+  // 1) 隱藏 Loading
+  loader.classList.add("hide");
+
+  // 2) 開場霧面出現
+  frost.classList.add("show");
+
+  // 3) 再出確認視窗
+  setTimeout(()=> openPortal(), 260);
+}
+
 function openPortal(){
-  if(!portal) return;
   portal.classList.add("open");
   portal.setAttribute("aria-hidden","false");
-  document.body.style.overflow="hidden";
 }
+
 function closePortal(){
-  if(!portal) return;
   portal.classList.remove("open");
   portal.setAttribute("aria-hidden","true");
-  document.body.style.overflow="";
 }
 
-if(portalYes){
-  portalYes.addEventListener("click", ()=>{
-    closePortal();
-    // 進入作品區
-    setTimeout(()=>{
-      document.getElementById("works")?.scrollIntoView({behavior:"smooth"});
-    }, 120);
-  });
+function playIntroAnimations(){
+  // 4) Yes 後才開始：彈跳標題、照片、簡介
+  document.body.classList.add("play");
 }
 
-if(portalNo){
-  portalNo.addEventListener("click", ()=>{
-    if(portalCry) portalCry.classList.add("show");
-    // 哭一下再跳 Google
-    setTimeout(()=>{
-      window.location.href = "https://www.google.com";
-    }, 1200);
-  });
-}
+portalYes.addEventListener("click", ()=>{
+  if(allowPlay) return;
+  allowPlay = true;
 
-// 點背景不關（你要更沈浸），但 Esc 允許關掉
+  closePortal();
+
+  // 霧面先留著，等滑到作品區後再拿掉（更有「進洞」感）
+  document.getElementById("works")?.scrollIntoView({behavior:"smooth"});
+
+  // 等滑動開始後，啟動 4) 動畫
+  setTimeout(()=>{
+    playIntroAnimations();
+    // 霧面淡出（你也可以改成保留霧面）
+    frost.classList.remove("show");
+  }, 520);
+});
+
+portalNo.addEventListener("click", ()=>{
+  portalCry.classList.add("show");
+  setTimeout(()=>{ window.location.href = "https://www.google.com"; }, 1200);
+});
+
+// 如果使用者按 ESC：關 portal（但霧面還在）
 window.addEventListener("keydown",(e)=>{
   if(e.key === "Escape"){
     closePortal();
   }
 });
-</script>
 
+// 等 DOM Ready 就先跑 Loading（不用等圖片）
+document.addEventListener("DOMContentLoaded", startLoading);
+</script>
 </body>
 </html>
-
