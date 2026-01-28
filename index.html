@@ -255,23 +255,11 @@ h1{
   object-fit:cover;
   display:block;
 }
-.photo .hint{
-  position:absolute;
-  inset:auto 10px 10px 10px;
-  padding: 6px 8px;
-  border-radius: 12px;
-  background: rgba(255,255,255,.72);
-  border:1px solid rgba(31,36,48,.10);
-  color: rgba(31,36,48,.65);
-  font-weight:900;
-  font-size:11px;
-}
+
 .avatar b{ font-size: 15px; font-weight: 1000; }
 .avatar small{ display:block; margin-top:4px; color: var(--muted); font-weight: 800; }
 
-.pills{
-  display:flex; flex-wrap:wrap; gap:8px;
-}
+.pills{ display:flex; flex-wrap:wrap; gap:8px; }
 .pills span{
   padding: 6px 10px;
   border-radius: 999px;
@@ -309,9 +297,7 @@ h1{
 .contact a:hover{ transform: translateY(-1px); }
 
 /* ===== Section titles ===== */
-.section{
-  margin-top: 46px;
-}
+.section{ margin-top: 46px; }
 .section-title{
   display:flex;
   align-items:baseline;
@@ -382,9 +368,7 @@ h1{
   font-weight: 900;
   font-size: 12px;
 }
-.work-body{
-  padding: 14px 14px 16px;
-}
+.work-body{ padding: 14px 14px 16px; }
 .work-title{
   margin:0 0 6px;
   font-weight: 1000;
@@ -398,11 +382,7 @@ h1{
   line-height: 1.75;
   min-height: 42px;
 }
-.tags{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
+.tags{ display:flex; gap:8px; flex-wrap:wrap; }
 .tag{
   padding: 6px 10px;
   border-radius:999px;
@@ -419,22 +399,14 @@ h1{
 }
 
 /* ===== Timeline ===== */
-.timeline{
-  margin-top: 12px;
-  display:grid;
-  gap: 14px;
-}
+.timeline{ margin-top: 12px; display:grid; gap: 14px; }
 .t-item{
   display:grid;
   grid-template-columns: 40px 1fr;
   gap: 14px;
   align-items:start;
 }
-.node{
-  display:flex;
-  justify-content:center;
-  position:relative;
-}
+.node{ display:flex; justify-content:center; position:relative; }
 .dot{
   width:14px;height:14px;border-radius:999px;
   background: linear-gradient(135deg, var(--rose), var(--rose2));
@@ -452,9 +424,7 @@ h1{
 }
 .t-item:last-child .node::after{ display:none; }
 
-.t-card{
-  padding: 16px 16px 14px;
-}
+.t-card{ padding: 16px 16px 14px; }
 .t-card h3{
   margin:0 0 4px;
   font-size: 15px;
@@ -473,10 +443,7 @@ h1{
   line-height: 1.85;
 }
 
-/* ===== ✅ Reveal 動畫（修正版） =====
-   沒 JS：預設就顯示
-   有 JS：才套用淡入
-*/
+/* ===== ✅ Reveal 動畫（修正版） ===== */
 .reveal{ opacity:1; transform:none; }
 .js .reveal{ opacity:0; transform: translateY(14px); }
 .js .reveal.show{
@@ -541,12 +508,7 @@ h1{
   background: rgba(31,36,48,.03);
   overflow:hidden;
 }
-.preview img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
+.preview img{ width:100%; height:100%; object-fit:cover; display:block; }
 .preview .ph{
   height: 100%;
   display:grid;
@@ -554,6 +516,7 @@ h1{
   color: rgba(31,36,48,.55);
   font-weight: 950;
 }
+
 .meta-box{
   border-radius: 18px;
   border:1px solid rgba(31,36,48,.10);
@@ -660,7 +623,6 @@ footer{
         <aside class="card profile reveal" id="about">
           <div class="avatar">
             <div class="photo" title="放你的個人照片">
-              <!-- ✅ 取消註解並確認圖片網址可公開存取 -->
               <img src="https://yagidesign-studio.com/wp-content/uploads/2026/01/snimgJFUvbc.webp" alt="My photo">
             </div>
             <div>
@@ -729,7 +691,7 @@ footer{
 
       <div class="dialog-main">
         <div class="preview" id="mPreview">
-          <div class="ph">images/work01.jpg</div>
+          <div class="ph">放大預覽（可放作品圖片）</div>
         </div>
 
         <div class="meta-box">
@@ -744,15 +706,9 @@ footer{
   </div>
 
 <script>
-<script>
 /* =========================
-   ✅ 你只要改這兩區：works / timelineItems
+   ✅ 你只要改這兩區
 ========================= */
-
-/** ✅ 作品資料
- *  - thumb：作品卡片縮圖（建議 1200x800 或 1600x1000）
- *  - images：Modal 裡可放多張大圖（可空陣列）
- */
 const works = [
   {
     title:"品牌識別｜LOGO & 規範",
@@ -764,8 +720,7 @@ const works = [
     tools:"Illustrator · Figma",
     desc:"以留白與玫瑰金建立高級感，延伸到名片與社群模板。",
     link:"#",
-    thumb:"images/work01.jpg",
-    images:["images/work01.jpg","images/work01-2.jpg","images/work01-3.jpg"]
+    thumb:"images/work01.jpg"
   },
   {
     title:"電商活動頁｜Landing Page",
@@ -777,8 +732,7 @@ const works = [
     tools:"Figma · Shopline",
     desc:"用節奏與資訊層級引導閱讀，提高完成率與轉換意圖。",
     link:"#",
-    thumb:"images/work02.jpg",
-    images:["images/work02.jpg"]
+    thumb:"images/work02.jpg"
   },
   {
     title:"簡易型網頁｜線上菜單",
@@ -788,10 +742,9 @@ const works = [
     highlight:"幫小型居酒屋，打造實用又符合店家的視覺網頁形象。",
     deliver:"一頁式網站",
     tools:"HTML / CSS / JS / RWD · GitHub",
-    desc:"一頁式網站讓客人一目了然、操作方便，同時保留店家風格。",
+    desc:"針對小型店家，一頁式網站能讓客人一目了然、操作方便，同時保留店家風格。",
     link:"https://yagiyou.github.io/SUISEI-CLUB/",
-    thumb:"images/work03.jpg",
-    images:["images/work03.jpg","images/work03-2.jpg"]
+    thumb:"images/work03.jpg"
   },
   {
     title:"包裝設計｜商品系列",
@@ -803,8 +756,7 @@ const works = [
     tools:"Illustrator · Photoshop",
     desc:"從主視覺到品項差異建立系統化邏輯。",
     link:"#",
-    thumb:"images/work04.jpg",
-    images:["images/work04.jpg"]
+    thumb:"images/work04.jpg"
   },
   {
     title:"網站視覺｜版面美化",
@@ -816,8 +768,7 @@ const works = [
     tools:"HTML · CSS",
     desc:"用一致的間距、字級、按鈕與卡片規則，讓整站更乾淨。",
     link:"#",
-    thumb:"images/work05.jpg",
-    images:["images/work05.jpg"]
+    thumb:"images/work05.jpg"
   },
   {
     title:"角色插畫｜品牌貼圖",
@@ -829,8 +780,7 @@ const works = [
     tools:"Procreate · Illustrator",
     desc:"適合社群與行銷使用的角色素材組。",
     link:"#",
-    thumb:"images/work06.jpg",
-    images:["images/work06.jpg","images/work06-2.jpg"]
+    thumb:"images/work06.jpg"
   }
 ];
 
@@ -841,11 +791,8 @@ const timelineItems = [
 ];
 
 /* =========================
-   Render Works
+   Utilities
 ========================= */
-const grid = document.getElementById("workGrid");
-
-function tagRose(text){ return `<span class="tag rose">${escapeHTML(text)}</span>`; }
 function escapeHTML(str){
   return String(str ?? "")
     .replaceAll("&","&amp;")
@@ -854,22 +801,22 @@ function escapeHTML(str){
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
 }
-
-function imgWithFallback(src, alt, cls=""){
-  const safeSrc = escapeHTML(src);
-  const safeAlt = escapeHTML(alt);
-  const safeCls = escapeHTML(cls);
-  return `
-    <img class="${safeCls}" src="${safeSrc}" alt="${safeAlt}"
-      onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=ph>圖片讀不到：${safeSrc}</div>';">
-  `;
+function safeImg(src, alt){
+  const s = escapeHTML(src);
+  const a = escapeHTML(alt);
+  return `<img src="${s}" alt="${a}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=ph>圖片讀不到：${s}</div>';">`;
 }
 
+/* =========================
+   Render Works
+========================= */
+const grid = document.getElementById("workGrid");
+function tagRose(text){ return `<span class="tag rose">${escapeHTML(text)}</span>`; }
+
 function workHTML(w, idx){
-  const hasThumb = !!(w.thumb && String(w.thumb).trim());
-  const thumb = hasThumb
-    ? imgWithFallback(w.thumb, w.title)
-    : `<div class="ph">請在 works.thumb 填入路徑</div>`;
+  const thumb = (w.thumb && String(w.thumb).trim())
+    ? safeImg(w.thumb, w.title)
+    : `<div class="ph">請填入：thumb:"images/work01.jpg"</div>`;
 
   return `
     <article class="work reveal" data-idx="${idx}">
@@ -960,7 +907,7 @@ window.addEventListener("scroll", onScroll, {passive:true});
 onScroll();
 
 /* =========================
-   ✅ Modal（含多圖輪播）
+   Modal
 ========================= */
 const modal = document.getElementById("modal");
 const mClose = document.getElementById("mClose");
@@ -973,58 +920,8 @@ const mTools = document.getElementById("mTools");
 const mDesc = document.getElementById("mDesc");
 const mLink = document.getElementById("mLink");
 
-let currentWork = null;
-let currentIndex = 0;
-
-function getImages(w){
-  const arr = Array.isArray(w.images) ? w.images.filter(Boolean) : [];
-  if(arr.length) return arr;
-  if(w.thumb) return [w.thumb];
-  return [];
-}
-
-function renderModalImage(w, imgIndex){
-  const imgs = getImages(w);
-  if(!imgs.length){
-    mPreview.innerHTML = `<div class="ph">請在 works.thumb 或 works.images 放圖片路徑</div>`;
-    return;
-  }
-  const safe = imgs[Math.max(0, Math.min(imgIndex, imgs.length-1))];
-  mPreview.innerHTML = `
-    <div style="height:100%; position:relative;">
-      ${imgWithFallback(safe, w.title)}
-      <div style="position:absolute; inset:auto 10px 10px 10px; display:flex; justify-content:space-between; gap:10px;">
-        <button type="button" id="prevImg" style="flex:1; padding:10px 12px; border-radius:14px; border:1px solid rgba(31,36,48,.10); background: rgba(255,255,255,.85); font-weight:950; cursor:pointer;">← 上一張</button>
-        <button type="button" id="nextImg" style="flex:1; padding:10px 12px; border-radius:14px; border:1px solid rgba(31,36,48,.10); background: rgba(255,255,255,.85); font-weight:950; cursor:pointer;">下一張 →</button>
-      </div>
-      <div style="position:absolute; inset:10px 10px auto 10px; display:flex; justify-content:flex-end;">
-        <div style="padding:6px 10px; border-radius:999px; background: rgba(255,255,255,.75); border:1px solid rgba(31,36,48,.10); font-weight:900; font-size:12px; color: rgba(31,36,48,.65);">
-          ${imgIndex+1} / ${imgs.length}
-        </div>
-      </div>
-    </div>
-  `;
-
-  const prevBtn = document.getElementById("prevImg");
-  const nextBtn = document.getElementById("nextImg");
-
-  if(prevBtn) prevBtn.onclick = ()=>{
-    const imgs = getImages(currentWork);
-    currentIndex = (currentIndex - 1 + imgs.length) % imgs.length;
-    renderModalImage(currentWork, currentIndex);
-  };
-  if(nextBtn) nextBtn.onclick = ()=>{
-    const imgs = getImages(currentWork);
-    currentIndex = (currentIndex + 1) % imgs.length;
-    renderModalImage(currentWork, currentIndex);
-  };
-}
-
 function openModal(w){
   if(!modal) return;
-  currentWork = w;
-  currentIndex = 0;
-
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.style.overflow="hidden";
@@ -1035,22 +932,21 @@ function openModal(w){
   mDeliver.textContent = w.deliver || "—";
   mTools.textContent = w.tools || "—";
   mDesc.textContent = w.desc || "—";
-
   mLink.href = w.link || "#";
-  mLink.style.opacity = w.link ? 1 : .5;
+  mLink.style.opacity = w.link && w.link !== "#" ? 1 : .5;
 
-  renderModalImage(w, currentIndex);
+  if(w.thumb){
+    mPreview.innerHTML = safeImg(w.thumb, w.title);
+  }else{
+    mPreview.innerHTML = `<div class="ph">放大預覽（可放作品圖片）</div>`;
+  }
 }
-
 function closeModal(){
   if(!modal) return;
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden","true");
   document.body.style.overflow="";
-  currentWork = null;
-  currentIndex = 0;
 }
-
 if(mClose) mClose.addEventListener("click", closeModal);
 if(modal){
   modal.addEventListener("click",(e)=>{ if(e.target === modal) closeModal(); });
@@ -1068,12 +964,6 @@ document.querySelectorAll(".work").forEach(card=>{
 const yearEl = document.getElementById("year");
 if(yearEl) yearEl.textContent = new Date().getFullYear();
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
