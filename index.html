@@ -10,6 +10,11 @@
   document.documentElement.classList.add('js');
 </script>
 
+<!-- 字體：襯線（標題）＋無襯線（內文） -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
 <style>
 :root{
   --rose:#b76e79;
@@ -24,19 +29,149 @@
   --r:18px;
   --max:1100px;
   --shadow:0 18px 60px rgba(31,36,48,.10);
+
+  --serif: "Cormorant Garamond", serif;
+  --sans: system-ui,-apple-system,"Noto Sans TC","PingFang TC",sans-serif;
 }
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  font-family: system-ui,-apple-system,"Noto Sans TC","PingFang TC",sans-serif;
+  font-family: var(--sans);
   color:var(--text);
   background:var(--bg);
   line-height:1.85;
   overflow-x:hidden;
 }
 
-/* ===== 背景：不重複 + 隨卷軸漂移 ===== */
+/* =========================
+   ✅ 進站：霧面→顯現
+========================= */
+.js body{
+  opacity: 0;
+  filter: blur(16px) saturate(.9);
+  transform: translateY(10px);
+}
+.js body.is-ready{
+  opacity: 1;
+  filter: blur(0) saturate(1);
+  transform: translateY(0);
+  transition: opacity .7s ease, filter .9s ease, transform .8s ease;
+}
+
+/* =========================
+   ✅ LOADING（全螢幕）
+========================= */
+.loader{
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display:grid;
+  place-items:center;
+  background:
+    radial-gradient(1000px 700px at 50% 45%, rgba(240,217,221,.55), transparent 65%),
+    linear-gradient(180deg, #fff, #fff);
+  transition: opacity .5s ease, visibility .5s ease;
+}
+.loader.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader-inner{
+  width: min(520px, 92vw);
+  display:grid;
+  place-items:center;
+  gap: 18px;
+  text-align:center;
+}
+
+/* 水晶：純 CSS（晶面慢慢長出玫瑰金） */
+.crystal{
+  width: 120px; height: 120px;
+  position: relative;
+  filter: drop-shadow(0 18px 30px rgba(183,110,121,.18));
+  transform-origin: 50% 60%;
+  animation: crystalFloat 2.3s ease-in-out infinite;
+}
+@keyframes crystalFloat{
+  0%,100%{ transform: translateY(0) rotate(-1deg); }
+  50%{ transform: translateY(-8px) rotate(1deg); }
+}
+.crystal::before{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-radius: 26px;
+  clip-path: polygon(50% 0%, 85% 18%, 100% 50%, 78% 100%, 22% 100%, 0% 50%, 15% 18%);
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255,255,255,.95), rgba(255,255,255,0) 45%),
+    linear-gradient(135deg, rgba(220,176,185,.22), rgba(183,110,121,.10));
+  border: 1px solid rgba(183,110,121,.22);
+}
+.crystal::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius: 26px;
+  clip-path: polygon(50% 0%, 85% 18%, 100% 50%, 78% 100%, 22% 100%, 0% 50%, 15% 18%);
+  background:
+    linear-gradient(120deg,
+      rgba(183,110,121,0) 0%,
+      rgba(183,110,121,.05) 20%,
+      rgba(214,163,173,.22) 42%,
+      rgba(183,110,121,.35) 62%,
+      rgba(183,110,121,0) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transform: scale(.98);
+  animation: growRose 1.6s ease forwards, shineSweep 1.8s ease 1.2s infinite;
+}
+@keyframes growRose{
+  0%{ opacity:0; transform: scale(.92); filter: blur(2px); }
+  100%{ opacity:1; transform: scale(1); filter: blur(0); }
+}
+@keyframes shineSweep{
+  0%{ background-position: -140px 0; }
+  100%{ background-position: 220px 0; }
+}
+
+.loader-title{
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.05;
+  margin:0;
+  opacity:.95;
+}
+.loader-sub{
+  margin:0;
+  color: rgba(31,36,48,.62);
+  font-weight: 800;
+  font-size: 13px;
+}
+.loader-bar{
+  width: min(380px, 82vw);
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(31,36,48,.10);
+  background: rgba(31,36,48,.04);
+  overflow:hidden;
+}
+.loader-bar > i{
+  display:block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(183,110,121,.55), rgba(214,163,173,.25));
+  box-shadow: 0 10px 22px rgba(183,110,121,.10);
+}
+
+/* =========================
+   背景：不重複 + 隨卷軸漂移
+========================= */
 .bg{
   position:fixed;
   inset:0;
@@ -185,6 +320,7 @@ body{
   gap: 16px;
   align-items: stretch;
 }
+
 .pill{
   display:inline-flex;
   align-items:center;
@@ -198,12 +334,38 @@ body{
   font-size:12px;
   width: fit-content;
 }
-h1{
+
+/* ✅ 你要的：Crystal Collection 彈跳式襯線字 */
+.hero-title{
   margin: 12px 0 8px;
-  font-size: clamp(28px, 4.2vw, 46px);
-  line-height: 1.08;
-  letter-spacing: -.7px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(34px, 5.2vw, 56px);
+  line-height: 1.03;
+  letter-spacing: -.6px;
 }
+.hero-title .cc{
+  display:inline-block;
+  background: linear-gradient(135deg, rgba(183,110,121,.92), rgba(214,163,173,.55));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color: transparent;
+}
+.js .hero-title{
+  transform: translateY(12px) scale(.98);
+  opacity: 0;
+}
+.js .hero-title.pop{
+  opacity:1;
+  transform: translateY(0) scale(1);
+  animation: ccPop .78s cubic-bezier(.2,.9,.2,1.2) both;
+}
+@keyframes ccPop{
+  0%{ transform: translateY(18px) scale(.92); }
+  60%{ transform: translateY(-6px) scale(1.03); }
+  100%{ transform: translateY(0) scale(1); }
+}
+
 .lead{
   margin:0;
   color: var(--muted);
@@ -232,7 +394,7 @@ h1{
   align-content:start;
 }
 
-/* 個人照片槽 */
+/* ✅ 你要的：照片左→右滑入、簡介右→左淡入 */
 .avatar{
   display:grid;
   grid-template-columns: 90px 1fr;
@@ -256,8 +418,34 @@ h1{
   display:block;
 }
 
+.js .photo{
+  opacity:0;
+  transform: translateX(-28px);
+}
+.js .photo.in{
+  opacity:1;
+  transform: translateX(0);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
 .avatar b{ font-size: 15px; font-weight: 1000; }
 .avatar small{ display:block; margin-top:4px; color: var(--muted); font-weight: 800; }
+
+.about-text{
+  color:var(--muted);
+  font-weight:750;
+  font-size:14px;
+  line-height:1.9;
+}
+.js .about-text{
+  opacity:0;
+  transform: translateX(22px);
+}
+.js .about-text.in{
+  opacity:1;
+  transform: translateX(0);
+  transition: opacity .8s ease .08s, transform .8s ease .08s;
+}
 
 .pills{ display:flex; flex-wrap:wrap; gap:8px; }
 .pills span{
@@ -443,7 +631,7 @@ h1{
   line-height: 1.85;
 }
 
-/* ===== ✅ Reveal 動畫（修正版） ===== */
+/* ===== Reveal：保留你原本的（一般區塊） ===== */
 .reveal{ opacity:1; transform:none; }
 .js .reveal{ opacity:0; transform: translateY(14px); }
 .js .reveal.show{
@@ -452,7 +640,7 @@ h1{
   transition: opacity .65s ease, transform .65s ease;
 }
 
-/* ===== Modal ===== */
+/* ===== Modal（作品預覽） ===== */
 .modal{
   position: fixed;
   inset: 0;
@@ -560,6 +748,92 @@ footer{
   text-align:center;
 }
 
+/* =========================
+   ✅ 進入水晶洞確認視窗（自製）
+========================= */
+.portal{
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding: 18px;
+  background: rgba(31,36,48,.45);
+  backdrop-filter: blur(10px);
+}
+.portal.open{ display:flex; }
+.portal-card{
+  width: min(520px, 100%);
+  border-radius: calc(var(--r) + 14px);
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(31,36,48,.10);
+  box-shadow: 0 30px 90px rgba(31,36,48,.22);
+  overflow:hidden;
+  transform: translateY(10px) scale(.99);
+  opacity:0;
+  transition: transform .22s ease, opacity .22s ease;
+}
+.portal.open .portal-card{ transform: translateY(0) scale(1); opacity:1; }
+
+.portal-top{
+  padding: 14px 16px 12px;
+  background: rgba(183,110,121,.07);
+  border-bottom: 1px solid rgba(31,36,48,.08);
+}
+.portal-top b{
+  display:block;
+  font-family: var(--serif);
+  font-size: 18px;
+  letter-spacing: .2px;
+}
+.portal-top small{
+  display:block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.portal-body{
+  padding: 14px 16px 16px;
+  display:grid;
+  gap: 12px;
+}
+.portal-actions{
+  display:flex;
+  gap: 10px;
+}
+.portal-actions button{
+  flex:1;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(31,36,48,.03);
+  font-weight: 950;
+  cursor:pointer;
+  transition: transform .18s ease, filter .18s ease;
+}
+.portal-actions button:hover{ transform: translateY(-1px); filter: brightness(1.02); }
+.portal-actions .yes{
+  border-color: rgba(183,110,121,.25);
+  background: rgba(183,110,121,.12);
+}
+.portal-cry{
+  display:none;
+  text-align:center;
+  font-weight: 1000;
+  color: rgba(183,110,121,.95);
+  padding: 10px 8px 0;
+}
+.portal-cry i{
+  display:block;
+  font-style: normal;
+  font-size: 42px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.portal-cry.show{ display:block; }
+
 /* ===== RWD ===== */
 @media(max-width: 980px){
   .hero-inner{ grid-template-columns: 1fr; }
@@ -578,6 +852,18 @@ footer{
 </head>
 
 <body>
+  <!-- ✅ LOADING -->
+  <div class="loader" id="loader" aria-hidden="false">
+    <div class="loader-inner">
+      <div class="crystal" aria-hidden="true"></div>
+      <h1 class="loader-title">Crystal Collection</h1>
+      <p class="loader-sub">玫瑰金水晶生成中…</p>
+      <div class="loader-bar" aria-label="loading">
+        <i id="loaderFill"></i>
+      </div>
+    </div>
+  </div>
+
   <div class="bg" aria-hidden="true">
     <div class="layer l1" id="bg1"></div>
     <div class="layer l2" id="bg2"></div>
@@ -608,7 +894,13 @@ footer{
       <div class="hero-inner">
         <div>
           <div class="pill">Crystal · Freelance Visual Designer</div>
-          <h1>把品牌做出「辨識度」<br/>把畫面做出「信任感」</h1>
+
+          <!-- ✅ Crystal Collection 彈跳襯線 -->
+          <div class="hero-title" id="heroTitle">
+            <span class="cc">Crystal Collection</span><br/>
+            把品牌做出「辨識度」<br/>把畫面做出「信任感」
+          </div>
+
           <p class="lead">
 整合品牌視覺與行銷策略，從 LOGO／識別／包裝到網站一條龍完成。
 熟悉 Shopline 與 HTML/CSS 前端調整，打造一致、好用、能轉換的品牌體驗。
@@ -622,11 +914,11 @@ footer{
         <!-- Profile -->
         <aside class="card profile reveal" id="about">
           <div class="avatar">
-            <div class="photo" title="放你的個人照片">
+            <div class="photo" id="avatarPhoto" title="放你的個人照片">
               <img src="https://yagidesign-studio.com/wp-content/uploads/2026/01/snimgJFUvbc.webp" alt="My photo">
             </div>
             <div>
-              <b>Crystal｜視覺設計 / 品牌與網頁</b>
+              <b>Crystal｜視覺設計 / 品品牌與網頁</b>
               <small>品牌識別、一頁式形象網頁、活動頁</small>
             </div>
           </div>
@@ -639,7 +931,7 @@ footer{
             <span>HTML/CSS 微調</span>
           </div>
 
-          <div style="color:var(--muted); font-weight:750; font-size:14px; line-height:1.9;">
+          <div class="about-text" id="aboutText">
 我是一位擅長把品牌故事轉化為有溫度視覺的設計師，從品牌識別、包裝到網站畫面，協助品牌建立清楚且一致的形象。
 除了視覺表現，我也熟悉 Shopline 網頁設計與 HTML / CSS 微調，能讓設計真正落實在實際銷售與使用流程中。
 我相信好的設計不只是好看，而是能幫助品牌被理解、被信任，並在市場中留下記憶點。
@@ -700,6 +992,26 @@ footer{
           <div class="row"><span>工具</span><b id="mTools">—</b></div>
           <div class="row"><span>說明</span><b id="mDesc">—</b></div>
           <a href="#" target="_blank" rel="noreferrer" id="mLink">查看作品連結 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ 進入水晶洞確認視窗 -->
+  <div class="portal" id="portal" aria-hidden="true">
+    <div class="portal-card">
+      <div class="portal-top">
+        <b>你確定好進入水晶洞的世界一探究竟嗎？</b>
+        <small>Yes 進入作品區 · No 先不要（哭哭一下）</small>
+      </div>
+      <div class="portal-body">
+        <div class="portal-actions">
+          <button class="yes" id="portalYes">Yes，我準備好了 ✨</button>
+          <button id="portalNo">No…我還在猶豫</button>
+        </div>
+        <div class="portal-cry" id="portalCry">
+          <i>🥺</i>
+          嗚嗚…那我先帶你去 Google…
         </div>
       </div>
     </div>
@@ -812,12 +1124,10 @@ function safeImg(src, alt){
 ========================= */
 const grid = document.getElementById("workGrid");
 function tagRose(text){ return `<span class="tag rose">${escapeHTML(text)}</span>`; }
-
 function workHTML(w, idx){
   const thumb = (w.thumb && String(w.thumb).trim())
     ? safeImg(w.thumb, w.title)
     : `<div class="ph">請填入：thumb:"images/work01.jpg"</div>`;
-
   return `
     <article class="work reveal" data-idx="${idx}">
       <div class="thumb">${thumb}</div>
@@ -867,7 +1177,6 @@ t.innerHTML = timelineItems.map(item => `
       }
     });
   },{ threshold: 0.12 });
-
   targets.forEach(el => io.observe(el));
 })();
 
@@ -963,9 +1272,97 @@ document.querySelectorAll(".work").forEach(card=>{
 /* Footer year */
 const yearEl = document.getElementById("year");
 if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+/* =========================
+   ✅ 進站流程總控（Loading → 霧面顯現 → 標題彈跳 → 進入確認視窗）
+========================= */
+(function introFlow(){
+  const loader = document.getElementById("loader");
+  const fill = document.getElementById("loaderFill");
+  const heroTitle = document.getElementById("heroTitle");
+  const avatarPhoto = document.getElementById("avatarPhoto");
+  const aboutText = document.getElementById("aboutText");
+
+  // 假進度（視覺用）
+  let p = 0;
+  const timer = setInterval(()=>{
+    p = Math.min(100, p + Math.random()*12);
+    if(fill) fill.style.width = p + "%";
+    if(p >= 100) clearInterval(timer);
+  }, 140);
+
+  // 等圖片/資源差不多了再收
+  window.addEventListener("load", ()=>{
+    // 讓 loading 至少存在一下，不要閃一下就沒
+    const minShow = 900;
+    setTimeout(()=>{
+      if(loader) loader.classList.add("hide");
+
+      // 霧面→顯現
+      document.body.classList.add("is-ready");
+
+      // 標題彈跳
+      setTimeout(()=> heroTitle && heroTitle.classList.add("pop"), 260);
+
+      // 你要的：照片左→右、簡介右→左
+      setTimeout(()=> avatarPhoto && avatarPhoto.classList.add("in"), 520);
+      setTimeout(()=> aboutText && aboutText.classList.add("in"), 620);
+
+      // 再跳出確認視窗
+      setTimeout(()=> openPortal(), 1050);
+
+    }, minShow);
+  });
+})();
+
+/* =========================
+   ✅ 進入水晶洞 Portal（Yes→作品區，No→哭哭→Google）
+========================= */
+const portal = document.getElementById("portal");
+const portalYes = document.getElementById("portalYes");
+const portalNo = document.getElementById("portalNo");
+const portalCry = document.getElementById("portalCry");
+
+function openPortal(){
+  if(!portal) return;
+  portal.classList.add("open");
+  portal.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+}
+function closePortal(){
+  if(!portal) return;
+  portal.classList.remove("open");
+  portal.setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+}
+
+if(portalYes){
+  portalYes.addEventListener("click", ()=>{
+    closePortal();
+    // 進入作品區
+    setTimeout(()=>{
+      document.getElementById("works")?.scrollIntoView({behavior:"smooth"});
+    }, 120);
+  });
+}
+
+if(portalNo){
+  portalNo.addEventListener("click", ()=>{
+    if(portalCry) portalCry.classList.add("show");
+    // 哭一下再跳 Google
+    setTimeout(()=>{
+      window.location.href = "https://www.google.com";
+    }, 1200);
+  });
+}
+
+// 點背景不關（你要更沈浸），但 Esc 允許關掉
+window.addEventListener("keydown",(e)=>{
+  if(e.key === "Escape"){
+    closePortal();
+  }
+});
 </script>
 
 </body>
 </html>
-
-
