@@ -150,6 +150,8 @@ body{
   white-space:nowrap;
 }
 .btn:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+.btn-ghost{ background: rgba(31,36,48,.03); border-color: rgba(31,36,48,.10); box-shadow:none; }
+.btn-ghost:hover{ transform: translateY(-1px); }
 
 /* ===== Shared card ===== */
 .card{
@@ -208,9 +210,6 @@ body{
   background-clip:text;
   color: transparent;
 }
-
-/* 初始先不要顯示動畫狀態（等 Yes 才加 .play） */
-.js .hero-title{ opacity:1; transform:none; }
 .js .hero-title.wait{ opacity:0; transform: translateY(14px) scale(.98); }
 .js .play .hero-title.wait{
   opacity:1;
@@ -232,8 +231,6 @@ body{
   white-space: pre-line;
 }
 .cta{ margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; }
-.btn-ghost{ background: rgba(31,36,48,.03); border-color: rgba(31,36,48,.10); box-shadow:none; }
-.btn-ghost:hover{ transform: translateY(-1px); }
 
 .profile{
   padding: 18px;
@@ -258,14 +255,11 @@ body{
     radial-gradient(circle at 30% 20%, rgba(255,255,255,.9), rgba(255,255,255,0) 55%),
     linear-gradient(135deg, rgba(214,163,173,.65), rgba(183,110,121,.20));
   overflow:hidden;
-  position:relative;
 }
 .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
-
 .js .photo.wait{ opacity:0; transform: translateX(-28px); }
 .js .play .photo.wait{
-  opacity:1;
-  transform: translateX(0);
+  opacity:1; transform: translateX(0);
   transition: opacity .7s ease .05s, transform .7s ease .05s;
 }
 
@@ -280,8 +274,7 @@ body{
 }
 .js .about-text.wait{ opacity:0; transform: translateX(22px); }
 .js .play .about-text.wait{
-  opacity:1;
-  transform: translateX(0);
+  opacity:1; transform: translateX(0);
   transition: opacity .8s ease .18s, transform .8s ease .18s;
 }
 
@@ -361,21 +354,17 @@ body{
     radial-gradient(520px 260px at 80% 25%, rgba(214,163,173,.14), transparent 60%),
     linear-gradient(135deg, rgba(31,36,48,.06), rgba(31,36,48,0));
   border-bottom:1px solid rgba(31,36,48,.08);
-  position:relative;
   overflow:hidden;
 }
 .thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 .thumb .ph{
-  position:absolute;
-  inset: 14px;
-  border-radius: 16px;
-  border:1px dashed rgba(31,36,48,.16);
-  background: rgba(255,255,255,.45);
+  height: 100%;
   display:grid;
   place-items:center;
   color: rgba(31,36,48,.55);
   font-weight: 900;
   font-size: 12px;
+  padding: 14px;
 }
 .work-body{ padding: 14px 14px 16px; }
 .work-title{ margin:0 0 6px; font-weight: 1000; font-size: 15px; }
@@ -464,8 +453,6 @@ footer{
   gap: 18px;
   text-align:center;
 }
-
-/* 水晶：玫瑰金晶面慢慢長出 + 閃光掃過 */
 .crystal{
   width: 120px; height: 120px;
   position: relative;
@@ -494,8 +481,6 @@ footer{
   inset:-2px;
   border-radius: 26px;
   clip-path: polygon(50% 0%, 85% 18%, 100% 50%, 78% 100%, 22% 100%, 0% 50%, 15% 18%);
-
-  /* 玫瑰金晶面（會「長出來」） */
   background:
     linear-gradient(120deg,
       rgba(183,110,121,0) 0%,
@@ -505,7 +490,6 @@ footer{
       rgba(183,110,121,0) 100%);
   background-size: 280px 180px;
   background-position: -200px 0;
-
   mix-blend-mode: multiply;
   opacity: 0;
   transform: scale(.95);
@@ -520,7 +504,6 @@ footer{
   0%{ background-position: -240px 0; }
   100%{ background-position: 260px 0; }
 }
-
 .loader-title{
   font-family: var(--serif);
   font-weight: 700;
@@ -591,7 +574,6 @@ footer{
   background: rgba(31,36,48,.20);
 }
 .portal.open{ display:flex; }
-
 .portal-card{
   width: min(520px, 100%);
   border-radius: calc(var(--r) + 14px);
@@ -604,7 +586,6 @@ footer{
   transition: transform .22s ease, opacity .22s ease;
 }
 .portal.open .portal-card{ transform: translateY(0) scale(1); opacity:1; }
-
 .portal-top{
   padding: 14px 16px 12px;
   background: rgba(183,110,121,.07);
@@ -622,7 +603,6 @@ footer{
   color: var(--muted);
   font-weight: 800;
 }
-
 .portal-body{ padding: 14px 16px 16px; display:grid; gap: 12px; }
 .portal-actions{ display:flex; gap: 10px; }
 .portal-actions button{
@@ -656,10 +636,111 @@ footer{
 }
 .portal-cry.show{ display:block; }
 
-/* ===== RWD ===== */
+/* =========================
+   ✅ Modal（作品預覽）
+========================= */
+.modal{
+  position: fixed;
+  inset: 0;
+  z-index: 9200;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding: 18px;
+  background: rgba(31,36,48,.52);
+  backdrop-filter: blur(10px);
+}
+.modal.open{ display:flex; }
+
+.dialog{
+  width: min(980px, 100%);
+  border-radius: calc(var(--r) + 12px);
+  background: rgba(255,255,255,.92);
+  border:1px solid rgba(31,36,48,.10);
+  box-shadow: 0 28px 90px rgba(31,36,48,.25);
+  overflow:hidden;
+  transform: translateY(10px) scale(.985);
+  opacity:0;
+  transition: transform .22s ease, opacity .22s ease;
+}
+.modal.open .dialog{ transform: translateY(0) scale(1); opacity:1; }
+
+.dialog-top{
+  display:flex;
+  justify-content:space-between;
+  gap: 12px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid rgba(31,36,48,.08);
+  background: rgba(183,110,121,.05);
+}
+.dialog-top h3{ margin:0; font-size: 16px; font-weight: 1000; }
+.dialog-top small{ display:block; margin-top:6px; color: var(--muted); font-weight: 800; }
+.close{
+  width: 40px; height: 40px;
+  border-radius: 14px;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(255,255,255,.85);
+  cursor:pointer;
+  font-weight: 1000;
+}
+.dialog-main{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 14px;
+  padding: 14px;
+}
+.preview{
+  min-height: 340px;
+  border-radius: 18px;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(31,36,48,.03);
+  overflow:hidden;
+}
+.preview img{ width:100%; height:100%; object-fit:cover; display:block; }
+.preview .ph{
+  height: 100%;
+  display:grid;
+  place-items:center;
+  color: rgba(31,36,48,.55);
+  font-weight: 950;
+  padding: 18px;
+}
+.meta-box{
+  border-radius: 18px;
+  border:1px solid rgba(31,36,48,.10);
+  background: rgba(255,255,255,.75);
+  padding: 12px;
+  display:grid;
+  gap: 10px;
+  align-content:start;
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border:1px solid rgba(31,36,48,.08);
+  background: rgba(31,36,48,.02);
+}
+.row span{ color: var(--muted); font-weight: 900; font-size: 12px; }
+.row b{ font-weight: 950; font-size: 12px; color: rgba(31,36,48,.88); }
+.meta-box a{
+  text-decoration:none;
+  text-align:center;
+  padding: 11px 12px;
+  border-radius: 14px;
+  border:1px solid rgba(183,110,121,.22);
+  background: rgba(183,110,121,.10);
+  color: var(--text);
+  font-weight: 1000;
+}
+.meta-box a:hover{ filter: brightness(1.02); }
+
 @media(max-width: 980px){
   .hero-inner{ grid-template-columns: 1fr; }
   .contact{ grid-template-columns: 1fr; }
+  .dialog-main{ grid-template-columns: 1fr; }
 }
 @media(max-width: 860px){ .work{ grid-column: span 6; } }
 @media(max-width: 520px){
@@ -735,7 +816,6 @@ footer{
         <div>
           <div class="pill">Crystal · Freelance Visual Designer</div>
 
-          <!-- 4) Yes 後才彈跳 -->
           <div class="hero-title wait" id="heroTitle">
             <span class="cc">Crystal Collection</span><br/>
             把品牌做出「辨識度」<br/>把畫面做出「信任感」
@@ -754,7 +834,7 @@ footer{
         <!-- Profile -->
         <aside class="card profile" id="about">
           <div class="avatar">
-            <div class="photo wait" id="avatarPhoto" title="放你的個人照片">
+            <div class="photo wait" id="avatarPhoto">
               <img src="https://yagidesign-studio.com/wp-content/uploads/2026/01/snimgJFUvbc.webp" alt="My photo">
             </div>
             <div>
@@ -807,6 +887,33 @@ footer{
 
     <footer>© <span id="year"></span> Crystal 保留一切權利。</footer>
   </main>
+
+  <!-- ✅ Modal（一定要有，卡片點擊才會有反應） -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="dialog" role="dialog" aria-modal="true">
+      <div class="dialog-top">
+        <div>
+          <h3 id="mTitle">作品標題</h3>
+          <small id="mSub">分類 · 年份 · 角色</small>
+        </div>
+        <button class="close" id="mClose" aria-label="close">✕</button>
+      </div>
+
+      <div class="dialog-main">
+        <div class="preview" id="mPreview">
+          <div class="ph">放大預覽（可放作品圖片）</div>
+        </div>
+
+        <div class="meta-box">
+          <div class="row"><span>亮點</span><b id="mHighlight">—</b></div>
+          <div class="row"><span>交付</span><b id="mDeliver">—</b></div>
+          <div class="row"><span>工具</span><b id="mTools">—</b></div>
+          <div class="row"><span>說明</span><b id="mDesc">—</b></div>
+          <a href="#" target="_blank" rel="noreferrer" id="mLink">查看作品連結 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script>
 /* =========================
@@ -911,7 +1018,7 @@ function safeImg(src, alt){
 }
 
 /* =========================
-   Render Works & Timeline
+   Render Works
 ========================= */
 const grid = document.getElementById("workGrid");
 function tagRose(text){ return `<span class="tag rose">${escapeHTML(text)}</span>`; }
@@ -920,7 +1027,7 @@ function workHTML(w, idx){
     ? safeImg(w.thumb, w.title)
     : `<div class="ph">請填入：thumb:"images/work01.jpg"</div>`;
   return `
-    <article class="work" data-idx="${idx}">
+    <article class="work" data-idx="${idx}" role="button" tabindex="0" aria-label="open work ${escapeHTML(w.title)}">
       <div class="thumb">${thumb}</div>
       <div class="work-body">
         <h3 class="work-title">${escapeHTML(w.title)}</h3>
@@ -935,19 +1042,10 @@ function workHTML(w, idx){
   `;
 }
 grid.innerHTML = works.map(workHTML).join("");
-  /* =========================
-   Works → 點擊開啟 Modal
+
+/* =========================
+   Render Timeline
 ========================= */
-document.querySelectorAll(".work").forEach(card=>{
-  card.addEventListener("click", ()=>{
-    const idx = Number(card.dataset.idx);
-    if(!isNaN(idx)){
-      openModal(works[idx]);
-    }
-  });
-});
-
-
 const t = document.getElementById("timelineList");
 t.innerHTML = timelineItems.map(item => `
   <div class="t-item">
@@ -960,11 +1058,73 @@ t.innerHTML = timelineItems.map(item => `
   </div>
 `).join("");
 
-/* Footer year */
+// Footer year
 document.getElementById("year").textContent = new Date().getFullYear();
 
 /* =========================
-   Hero mouse glow（安全判斷）
+   ✅ Modal Logic（完整補回）
+========================= */
+const modal = document.getElementById("modal");
+const mClose = document.getElementById("mClose");
+const mTitle = document.getElementById("mTitle");
+const mSub = document.getElementById("mSub");
+const mPreview = document.getElementById("mPreview");
+const mHighlight = document.getElementById("mHighlight");
+const mDeliver = document.getElementById("mDeliver");
+const mTools = document.getElementById("mTools");
+const mDesc = document.getElementById("mDesc");
+const mLink = document.getElementById("mLink");
+
+function openModal(w){
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+  document.body.style.overflow = "hidden";
+
+  mTitle.textContent = w.title || "作品";
+  mSub.textContent = `${w.cat || ""} · ${w.year || ""} · ${w.role || ""}`.replaceAll("  "," ").trim();
+
+  mHighlight.textContent = w.highlight || "—";
+  mDeliver.textContent = w.deliver || "—";
+  mTools.textContent = w.tools || "—";
+  mDesc.textContent = w.desc || "—";
+
+  mLink.href = w.link || "#";
+  mLink.style.opacity = (w.link && w.link !== "#") ? 1 : .5;
+
+  if(w.thumb){
+    mPreview.innerHTML = safeImg(w.thumb, w.title);
+  }else{
+    mPreview.innerHTML = `<div class="ph">放大預覽（可放作品圖片）</div>`;
+  }
+}
+function closeModal(){
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  document.body.style.overflow = "";
+}
+
+mClose.addEventListener("click", closeModal);
+modal.addEventListener("click",(e)=>{ if(e.target === modal) closeModal(); });
+window.addEventListener("keydown",(e)=>{ if(e.key === "Escape") closeModal(); });
+
+/* ✅ 最穩：事件委派（不怕你之後重渲染作品） */
+grid.addEventListener("click",(e)=>{
+  const card = e.target.closest(".work");
+  if(!card) return;
+  const idx = Number(card.dataset.idx);
+  if(Number.isFinite(idx) && works[idx]) openModal(works[idx]);
+});
+grid.addEventListener("keydown",(e)=>{
+  if(e.key !== "Enter" && e.key !== " ") return;
+  const card = e.target.closest(".work");
+  if(!card) return;
+  e.preventDefault();
+  const idx = Number(card.dataset.idx);
+  if(Number.isFinite(idx) && works[idx]) openModal(works[idx]);
+});
+
+/* =========================
+   Hero mouse glow
 ========================= */
 const hero = document.querySelector(".hero");
 if(hero){
@@ -978,7 +1138,7 @@ if(hero){
 }
 
 /* =========================
-   Background scroll parallax（安全判斷）
+   Background scroll parallax
 ========================= */
 const bg1 = document.getElementById("bg1");
 const bg2 = document.getElementById("bg2");
@@ -1000,9 +1160,6 @@ onScroll();
 
 /* =========================
    ✅ 劇場流程（嚴格依序）
-   1 Loading → 2 Frost → 3 Portal
-   Yes: scroll works → 4 play animations
-   No: cry → google
 ========================= */
 const loader = document.getElementById("loader");
 const loaderFill = document.getElementById("loaderFill");
@@ -1012,48 +1169,35 @@ const portalYes = document.getElementById("portalYes");
 const portalNo = document.getElementById("portalNo");
 const portalCry = document.getElementById("portalCry");
 
-let allowPlay = false; // Yes 才 true
+let allowPlay = false;
 
 function startLoading(){
-  // 讓 loading 必定可見（避免你遇到「沒有 loading」）
   loader.classList.remove("hide");
 
-  // 假進度條：穩定上升到 100
   let p = 0;
   const tick = setInterval(()=>{
     p = Math.min(100, p + (6 + Math.random()*10));
     loaderFill.style.width = p + "%";
     if(p >= 100){
       clearInterval(tick);
-      // 保證至少顯示一段時間：不會一閃就消失
       setTimeout(endLoading, 420);
     }
   }, 140);
 }
-
 function endLoading(){
-  // 1) 隱藏 Loading
   loader.classList.add("hide");
-
-  // 2) 開場霧面出現
   frost.classList.add("show");
-
-  // 3) 再出確認視窗
   setTimeout(()=> openPortal(), 260);
 }
-
 function openPortal(){
   portal.classList.add("open");
   portal.setAttribute("aria-hidden","false");
 }
-
 function closePortal(){
   portal.classList.remove("open");
   portal.setAttribute("aria-hidden","true");
 }
-
 function playIntroAnimations(){
-  // 4) Yes 後才開始：彈跳標題、照片、簡介
   document.body.classList.add("play");
 }
 
@@ -1062,14 +1206,10 @@ portalYes.addEventListener("click", ()=>{
   allowPlay = true;
 
   closePortal();
-
-  // 霧面先留著，等滑到作品區後再拿掉（更有「進洞」感）
   document.getElementById("works")?.scrollIntoView({behavior:"smooth"});
 
-  // 等滑動開始後，啟動 4) 動畫
   setTimeout(()=>{
     playIntroAnimations();
-    // 霧面淡出（你也可以改成保留霧面）
     frost.classList.remove("show");
   }, 520);
 });
@@ -1079,16 +1219,14 @@ portalNo.addEventListener("click", ()=>{
   setTimeout(()=>{ window.location.href = "https://www.google.com"; }, 1200);
 });
 
-// 如果使用者按 ESC：關 portal（但霧面還在）
 window.addEventListener("keydown",(e)=>{
   if(e.key === "Escape"){
     closePortal();
+    closeModal();
   }
 });
 
-// 等 DOM Ready 就先跑 Loading（不用等圖片）
 document.addEventListener("DOMContentLoaded", startLoading);
 </script>
 </body>
 </html>
-
