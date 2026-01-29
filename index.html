@@ -770,16 +770,16 @@ footer{
     <div class="portal-card">
       <div class="portal-top">
         <b>你確定好進入水晶洞的世界一探究竟嗎？</b>
-        <small>Yes 進入作品區 · No 先不要（哭哭一下）</small>
+        <small>Yes 進入作品區 · No 先不要</small>
       </div>
       <div class="portal-body">
         <div class="portal-actions">
           <button class="yes" id="portalYes">Yes，我準備好了 ✨</button>
-          <button id="portalNo">No…我還在猶豫</button>
+          <button id="portalNo">No…先不要</button>
         </div>
         <div class="portal-cry" id="portalCry">
           <i>🥺</i>
-          嗚嗚…那我先帶你去 Google…
+          嗚嗚…那我先帶你回去我的IG主頁…
         </div>
       </div>
     </div>
@@ -1216,7 +1216,7 @@ portalYes.addEventListener("click", ()=>{
 
 portalNo.addEventListener("click", ()=>{
   portalCry.classList.add("show");
-  setTimeout(()=>{ window.location.href = "https://www.google.com"; }, 1200);
+  setTimeout(()=>{ window.location.href = "https://www.threads.com/@crystal.vibes_0701"; }, 1200);
 });
 
 window.addEventListener("keydown",(e)=>{
@@ -1230,3 +1230,4 @@ document.addEventListener("DOMContentLoaded", startLoading);
 </script>
 </body>
 </html>
+
