@@ -935,6 +935,18 @@ function workHTML(w, idx){
   `;
 }
 grid.innerHTML = works.map(workHTML).join("");
+  /* =========================
+   Works → 點擊開啟 Modal
+========================= */
+document.querySelectorAll(".work").forEach(card=>{
+  card.addEventListener("click", ()=>{
+    const idx = Number(card.dataset.idx);
+    if(!isNaN(idx)){
+      openModal(works[idx]);
+    }
+  });
+});
+
 
 const t = document.getElementById("timelineList");
 t.innerHTML = timelineItems.map(item => `
@@ -1079,3 +1091,4 @@ document.addEventListener("DOMContentLoaded", startLoading);
 </script>
 </body>
 </html>
+
